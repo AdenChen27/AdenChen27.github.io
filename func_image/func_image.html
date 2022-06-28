@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plot</title>
+        <link rel="stylesheet" type="text/css" href="default_style.css">
+    </head>
+    <body>
+        <canvas id="graph"></canvas>
+        <div id="input_area">
+            <p> y = <input type="text" id="y_val" value="" onfocus="this.select()" /> </p>
+            <p> Color: <input type="color" id="color" value="#770000" /> </p>
+            <p id="err_msg"></p>
+            <label> <input type="checkbox" class="checkbox" id="axis_checkbox" checked="true" />Axes</label>
+            <label> <input type="checkbox" class="checkbox" id="axis_mark_checkbox" checked="true" />Axis Number</label>
+            <label> <input type="checkbox" class="checkbox" id="guide_line_checkbox" />Grid</label>
+            <br />
+            <br />
+            <button onclick="add_new_graph(y_val_input_box.value)" id="new_graph_btn">Plot</button>
+            <button onclick="clear_all()" id="clear_btn">Clear</button>
+            <br/>
+            <br/>
+            <button onclick="generate_qrcode()" id="qrcode_btn">QR Code</button>
+            <button onclick="get_img()" id="qrcode_btn">Get Image</button>
+            <p id="enlarge_val_label">Scale = 1:<input type="text" id="enlarge_val_input" onfocus="this.select()" /> </p>
+            <p id="mouse_pos"></p>
+            <p id="other_info"></p>
+            <!-- qrcode -->
+            <div id="qrcode"></div>
+            <!-- qrcode end -->
+        </div>
+        <script type="text/javascript" src="qrcode.js"></script>
+        <script type="text/javascript" src="init.js"></script>
+        <script type="text/javascript" src="image_control.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>

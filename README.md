@@ -1,1 +1,18 @@
-# AdenChen27.github.io
+A collection of my little web projects
+
+
+**Online function plotting thing**
+
+- check it out [here](https://adenchen27.github.io/func_image/func_image.html)
+- helps you plot your functions
+- it's basic, but hey, it's really fast and extremely lightweight
+- generates QR code for this page with your plotted function images!
+- generates png files in a click so you won't have to take screenshots
+
+- `qrcode.js` from [davidshimjs](https://github.com/davidshimjs/qrcodejs)
+
+
+**A simple online citation checker (...in development)**
+
+- check it out [here](https://adenchen27.github.io/citation_checker/main.html)
+- checks your apa7 essay in no time

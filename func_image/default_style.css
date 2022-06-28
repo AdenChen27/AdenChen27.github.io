@@ -1,0 +1,98 @@
+#graph, #input_area {
+    font-size: 110%;
+    background-color: #FFF;
+    border: 3px solid #AAA;
+    border-radius: 20px;
+}
+
+body {
+    background-color: #FFF;
+}
+
+#qrcode {
+    height: 18%;
+    width: 100%;
+}
+
+#input_area {
+    padding: 5px;
+}
+
+#graph {
+    cursor: crosshair;
+    position: absolute;
+    float: left;
+}
+
+#input_area {
+    float: right;
+}
+
+#y_val, button {
+    padding: 4px 10px;
+    height: 27px;
+    background: #FAFAFA;
+    border: 1px solid #DDD;
+    border-radius: 10px;
+}
+
+#enlarge_val_label, #enlarge_val_input {
+    font-size: 85%;
+}
+
+#color, .checkbox, button {
+    cursor: pointer;
+}
+
+#color, #enlarge_val_input {
+    padding: 0px 2px;
+    height: 20px;
+    width: 30%;
+    background: #FAFAFA;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+}
+
+.checkbox {
+    width: 15px;
+    height: 15px;
+}
+
+#new_graph_btn, #clear_btn, #qrcode_btn {
+    width: 30%;
+}
+
+#new_graph_btn {
+    margin-left: 0px;
+}
+
+#axis_checkbox {
+    margin-left: 10%;
+}
+
+#y_val, #color, #enlarge_val_input, p, label, button {
+    color: #555;
+}
+
+#err_msg {
+    color: #CC0000;
+}
+
+#reference {
+    font-size: 85%;
+    color: #666;
+}
+
+abbr {
+    text-decoration: none;
+    font-weight: bold;
+    /*display: block;*/
+    float: left;
+    width: 30%;
+}
+
+#color:hover, button:hover {
+    color: #444;
+    background: #EEE;
+    border-color: #CCC;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Citation Checker</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="checker.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <label>Your essay</label>
+                <textarea id="essay"></textarea>
+            </div>
+            <div class="column">
+                <label>Your references</label>
+                <textarea id="references"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+
+    <button type="button" onclick="check()">check</button>
+    <textarea id="temp"></textarea>
+</body>
+</html>

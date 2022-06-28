@@ -1,0 +1,40 @@
+.container {
+    display: block;
+    width: 75%;
+    margin: auto;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+body {
+    /*font-size: 1.2em;*/
+}
+
+textarea {
+    height: 50em;
+    width: 95%;
+    font-size: 1.2em;
+}
+
+textarea, button {
+    margin: auto;
+    display: block;
+    /*border-radius: .2em;*/
+    border-radius: .3em;
+}
+
+button {
+    padding: .2em;
+    background-color: white;
+    color: black;
+    font-size: 1.5em;
+    width: 20em;
+}
+
+
