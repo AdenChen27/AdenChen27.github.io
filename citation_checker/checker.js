@@ -1,12 +1,38 @@
-class work {
-    // index: int
+class Work {
+    #index; // int
     // author & date: str
+    #author;
+    #date;
     constructor(index, author, date) {
-        self.index = index;
-        self.author = author;
-        self.date = author;
+        self.#index = index;
+        self.#author = author;
+        self.#date = date;
+    }
+
+    static is_citation(str) {
+        return /, .*?\d{4}/.test(str) || str.includes(", n.d.")
+    }
+
+    static is_date(str) {
+        str = str.trim();
+        return str.endsWith("n.d.") || /\d{4}$/.test(str);
+    }
+
+    static get_works_from_citation(str, index) {
+        for (let work of str.split(";")) {
+            let elements = work.split(",");
+            elements[0] = elements[0].replace("see also", "").trim();
+            elements = elements.map(element => (element.trim()));
+
+            const author = elements[0];
+            console.log(author);
+            for (let date of elements.slice(1)) {
+                console.log(date);
+            }
+        }
     }
 }
+
 
 
 function tprint(...args) {
@@ -21,7 +47,7 @@ function get_inline_citations(){
     var matches = [];
     const text = document.getElementById("essay").value;
     const re_inline_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
-    const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
+    // const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
     // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
     // const re2 = //g; // Narative Citation
 
@@ -32,19 +58,12 @@ function get_inline_citations(){
 
 
     // filter: keep if contain ", [date]" or ", n.d."
-    matches = matches.filter(match => (
-        /, .*?\d{4}/.test(match[0]) || match[0].includes(", n.d.")
-    ));
+    matches = matches.filter(match => (Work.is_citation(match[0])));
 
     for (let match of matches) {
-        var index = match.index;
-        var str = match[0];
+        console.log(match[0].split(";"));
         // separating multiple works
-        console.log(str.split(";"));
-        for (let work of str.split(";")) {
-            console.log(work.trim());
-
-        }
+        Work.get_works_from_citation(match[0], match.index)
         // tprint(str);
 
         // if is (year) then ...
