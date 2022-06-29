@@ -1,3 +1,14 @@
+class work {
+    // index: int
+    // author & date: str
+    constructor(index, author, date) {
+        self.index = index;
+        self.author = author;
+        self.date = author;
+    }
+}
+
+
 function tprint(...args) {
     var temp = document.getElementById("temp");
     for (var i in args) {
@@ -7,14 +18,39 @@ function tprint(...args) {
 }
 
 function get_inline_citations(){
-    var text = document.getElementById("essay").value;
     var matches = [];
-    const re = /\([A-Za-z&0-9,. ;]+\)/g;
+    const text = document.getElementById("essay").value;
+    const re_inline_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
+    const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
+    // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
+    // const re2 = //g; // Narative Citation
 
-    while ((match = re.exec(text)) != null) {
+    // matches = everything in parentheses
+    while ((match = re_inline_citation.exec(text)) != null) {
         matches.push(match);
     }
 
+
+    // filter: keep if contain ", [date]" or ", n.d."
+    matches = matches.filter(match => (
+        /, .*?\d{4}/.test(match[0]) || match[0].includes(", n.d.")
+    ));
+
+    for (let match of matches) {
+        var index = match.index;
+        var str = match[0];
+        // separating multiple works
+        console.log(str.split(";"));
+        for (let work of str.split(";")) {
+            console.log(work.trim());
+
+        }
+        // tprint(str);
+
+        // if is (year) then ...
+    };
+
+    // sort in alphabatic order
     matches.sort(function (x, y) {
         x = x[0].toLowerCase();
         y = y[0].toLowerCase();
@@ -25,13 +61,32 @@ function get_inline_citations(){
         }
         return 1;
     });
+}
 
-    for (var i in matches) {
-        var index = matches[i].index;
-        var str = matches[i][0];
-        // if is (year) then ...
-        tprint(matches[i].index, matches[i][0])
-        // separate citation citaing multiple
+
+function test() {
+    // // var date = /\([0-9]{4}[a-z]?\)/g;
+    // var date = /\(/g;
+    // // const references = document.getElementById("references").value.split("\n");
+    // references.forEach(function (reference) {
+    //     const date_i = reference.search(date);
+    //     // console.log(reference.substring(0, date_i));
+    //     // console.log(reference);
+    //     // console.log();
+    //     // tprint(reference.substring(0, date_i));
+    //     var names = reference.substring(0, date_i).split(",");
+    //     names = names.filter(name => !(name.includes("."))); // Digest of Education Statistics Table 226.10.
+    //     console.log(names);
+    //     tprint(names);
+    //     // console.log(
+    // });
+
+    const references = document.getElementById("references").value;
+    const re = /(.+?)\s\((.+?)\)/g;
+    while ((match = re.exec(references)) != null) {
+        // matches.push(match);
+        console.log(match);
+        console.log(match.length);
     }
 }
 
