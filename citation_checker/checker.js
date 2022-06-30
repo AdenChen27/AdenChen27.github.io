@@ -2,7 +2,7 @@
  * TODO:
  * check_date: check (yyyy, month day)/(yyyy, month) format
  * */
-class Work {
+class InlineWork {
     constructor(author, date, author_i, date_i) {
         // author & date in String
         // pre-`trim()` (might have spaces & stuff like "see also: ")
@@ -43,8 +43,8 @@ class Work {
     static get_works_from_citation(str, index) {
         // str: String of a Parenthetical Citation (without the partentheses)
         // index: start index of str in essay
-        // return an Array of Work
-        let works = Array();
+        // return an Array of InlineWork
+        let works = new Array();
 
         for (let work of str.split(";")) {
             let elements = work.split(",");
@@ -59,9 +59,39 @@ class Work {
 
             for (let date of elements.slice(1)) {
                 // console.log(author, date, index, author_index);
-                works.push(new Work(author, date, author_index, index, false));
+                works.push(new InlineWork(author, date, author_index, index, false));
                 index += date.length + 1;
             }
+        }
+        return works;
+    }
+}
+
+
+class ReferenceListWork {
+    constructor (authors, date) {
+        // list of authors' names in String
+        this.authors = authors;
+        // date
+        this.date = date;
+    }
+
+    static get_reference_list_works_dict(str) {
+        // str: reference list in String
+        // return an Dictionary of `ReferenceListWork` representing the reference list
+        // return = {date1: [authors1, ], }
+        const re = /^(.+?)\s\((.+?)\)/mg;
+        let works = {};
+        let match;
+        while ((match = re.exec(str)) != null) {
+            let authors = match[1].split(",");
+            const date = match[2];
+            authors = authors.map(author => (author.replace("&", "").trim()));
+            authors = authors.filter(author => !(is_initials(author)));
+            if (!(date in works)) {
+                works[date] = new Array();
+            }
+            works[date].push(new ReferenceListWork(authors, date));
         }
         return works;
     }
@@ -98,10 +128,10 @@ function get_inline_citations(){
     // const re2 = //g; // Narative Citation
 
     // matches = everything in parentheses
-    let works = Array();
+    let works = new Array();
     while ((match = re_inline_citation.exec(text)) != null) {
-        if (Work.is_citation(match[0])) {
-            works.push(...Work.get_works_from_citation(match[0], match.index));
+        if (InlineWork.is_citation(match[0])) {
+            works.push(...InlineWork.get_works_from_citation(match[0], match.index));
         }
         matches.push(match);
     }
@@ -125,38 +155,9 @@ function get_inline_citations(){
 
 
 function test() {
-    // // var date = /\([0-9]{4}[a-z]?\)/g;
-    // var date = /\(/g;
-    // // const references = document.getElementById("references").value.split("\n");
-    // references.forEach(function (reference) {
-    //     const date_i = reference.search(date);
-    //     // console.log(reference.substring(0, date_i));
-    //     // console.log(reference);
-    //     // console.log();
-    //     // tprint(reference.substring(0, date_i));
-    //     var names = reference.substring(0, date_i).split(",");
-    //     names = names.filter(name => !(name.includes("."))); // Digest of Education Statistics Table 226.10.
-    //     console.log(names);
-    //     tprint(names);
-    //     // console.log(
-    // });
-
     const references = document.getElementById("references").value;
-    const re = /^(.+?)\s\((.+?)\)/mg;
-    while ((match = re.exec(references)) != null) {
-        const authors = match[1];
-        const date = match[2];
-        for (let author of authors.split(",")) {
-            author = author.replace("&", "").trim();
-            // is initials
-            if (is_initials(author)) {
-                continue;
-            }
-            console.log(author);
-        }
-        console.log("\n");
-        // console.log(match.length);
-    }
+    const works = ReferenceListWork.get_reference_list_works_dict(references);
+    console.log(works);
 }
 
 
