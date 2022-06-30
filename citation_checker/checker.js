@@ -13,6 +13,28 @@ class InlineWork {
         this.date_i = date_i;
     }
 
+    get_date() {
+        // return date
+        return this.date.trim();
+    }
+
+    get_authors() {
+        // return an Array of author names in string
+        // "X & Y" -> ["X", "Y"]
+        // "X et al." -> ["X", "et al."]
+        let authors = this.author.split("&"); // CHECK FORMAT
+        const author_n = authors.length;
+        if (authors[author_n - 1].includes("et al.")) {
+            authors[author_n - 1] = authors[author_n - 1].replace("et al.", "");
+            authors.push("et al.");
+        }
+        return authors.map(str => (str.trim()));
+    }
+
+    set_error(error) {
+        this.error = error;
+    }
+
     static is_citation(str) {
         // includes date
         return /, .*?\d{4}/.test(str) || str.includes(", n.d.")
@@ -69,20 +91,45 @@ class InlineWork {
 
 
 class ReferenceListWork {
-    constructor (authors, date) {
+    constructor (authors, date, index) {
         // list of authors' names in String
         this.authors = authors;
         // date
         this.date = date;
+        // index in reference list
+        this.index = index;
     }
 
-    static get_reference_list_works_dict(str) {
+    equals(inline_work) {
+        if (inline_work.get_date() !== this.date) {
+            return false;
+        }
+        const authors = this.authors;
+        const authors_n = authors.length;
+        const inline_work_authors = inline_work.get_authors();
+        const inline_work_authors_n = inline_work.get_authors();
+        // test if used "et al."
+        if (author_num >= 3 && inline_work_authors_n === 2) {
+            // inline_work_authors should be ["first author", "et al."]
+            return inline_work_authors[0] === authors[0] && 
+                inline_work_authors[1] === "et al.";
+        } else if (author_num === 1 && inline_work_authors_n === 1) {
+            return inline_work_authors[0] === authors[0];
+        } else if (author_num === 2 && inline_work_authors_n === 2) {
+            return inline_work_authors[0] === authors[0] && 
+                inline_work_authors[1] === authors[1];
+        }
+        return false;
+    }
+
+    static get_reference_list_dict(str) {
         // str: reference list in String
         // return an Dictionary of `ReferenceListWork` representing the reference list
         // return = {date1: [authors1, ], }
         const re = /^(.+?)\s\((.+?)\)/mg;
         let works = {};
         let match;
+        let index = 0
         while ((match = re.exec(str)) != null) {
             let authors = match[1].split(",");
             const date = match[2];
@@ -91,7 +138,8 @@ class ReferenceListWork {
             if (!(date in works)) {
                 works[date] = new Array();
             }
-            works[date].push(new ReferenceListWork(authors, date));
+            index++;
+            works[date].push(new ReferenceListWork(authors, date, index));
         }
         return works;
     }
@@ -156,14 +204,28 @@ function get_inline_citations(){
 
 function test() {
     const references = document.getElementById("references").value;
-    const works = ReferenceListWork.get_reference_list_works_dict(references);
+    const works = ReferenceListWork.get_reference_list_dict(references);
     console.log(works);
 }
 
 
 function check() {
-    for (let work of get_inline_citations()) {
+    const references_text = document.getElementById("references").value;
+    const reference_list_dict = ReferenceListWork.get_reference_list_dict(references_text);
+    const inline_citations = get_inline_citations();
+    for (let work of inline_citations) {
         work.check();
+        console.log(work.author);
+        console.log(work.get_authors());
+        const date = work.get_date();
+        if (!work.error) {
+            if (!(date in reference_list_dict)) {
+                work.set_error("work not in reference list");
+            } else if (reference_list_dict[date]) {
+                work.set_error("work not in reference list");
+            }
+        }
+        // console.log(work.get_date());
         console.log(work);
     }
 }
