@@ -1,15 +1,20 @@
+/**
+ * TODO:
+ * check_date: check (yyyy, month day)/(yyyy, month) format
+ * */
 class Work {
-    #index; // int
-    // author & date: str
-    #author;
-    #date;
-    constructor(index, author, date) {
-        self.#index = index;
-        self.#author = author;
-        self.#date = date;
+    constructor(author, date, author_i, date_i) {
+        // author & date in String
+        // pre-`trim()` (might have spaces & stuff like "see also: ")
+        this.author = author;
+        this.date = date;
+        // start index of author & date in essay
+        this.author_i = author_i;
+        this.date_i = date_i;
     }
 
     static is_citation(str) {
+        // includes date
         return /, .*?\d{4}/.test(str) || str.includes(", n.d.")
     }
 
@@ -18,19 +23,60 @@ class Work {
         return str.endsWith("n.d.") || /\d{4}$/.test(str);
     }
 
+    check_date() {
+        // check citation date format
+        // return error as string, if any
+        // return false if no error found
+        let raw_date = this.date.trim(); // date after `trim`
+        if (raw_date === "n.d." || /^\d{4}[a-z]?$/.test(raw_date)) {
+            return false;
+        }
+        return "date error";
+    }
+
+    check() {
+        // check citation of work
+        // stor citation error at `self.error`
+        this.error = this.check_date();
+    }
+
     static get_works_from_citation(str, index) {
+        // str: String of a Parenthetical Citation (without the partentheses)
+        // index: start index of str in essay
+        // return an Array of Work
+        let works = Array();
+
         for (let work of str.split(";")) {
             let elements = work.split(",");
-            elements[0] = elements[0].replace("see also", "").trim();
-            elements = elements.map(element => (element.trim()));
+            
+            // elements[0] = elements[0].replace("see also", "").trim();
+            // elements = elements.map(element => (element.trim()));
 
             const author = elements[0];
-            console.log(author);
+            const author_index = index;
+            
+            index += author.length + 1;
+
             for (let date of elements.slice(1)) {
-                console.log(date);
+                // console.log(author, date, index, author_index);
+                works.push(new Work(author, date, author_index, index, false));
+                index += date.length + 1;
             }
         }
+        return works;
     }
+}
+
+
+function is_initials(str) {
+    // return boolean
+    // initials: e.g. "A. P."
+    for (let c of str.replaceAll(".", "").split(" ")) {
+        if (c.length > 1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -52,34 +98,29 @@ function get_inline_citations(){
     // const re2 = //g; // Narative Citation
 
     // matches = everything in parentheses
+    let works = Array();
     while ((match = re_inline_citation.exec(text)) != null) {
+        if (Work.is_citation(match[0])) {
+            works.push(...Work.get_works_from_citation(match[0], match.index));
+        }
         matches.push(match);
     }
+    // for (let work of works) {
+    //     console.log(work);
+    // }
 
-
-    // filter: keep if contain ", [date]" or ", n.d."
-    matches = matches.filter(match => (Work.is_citation(match[0])));
-
-    for (let match of matches) {
-        console.log(match[0].split(";"));
-        // separating multiple works
-        Work.get_works_from_citation(match[0], match.index)
-        // tprint(str);
-
-        // if is (year) then ...
-    };
-
-    // sort in alphabatic order
-    matches.sort(function (x, y) {
-        x = x[0].toLowerCase();
-        y = y[0].toLowerCase();
-        if (x < y) {
-            return -1;
-        } else if (x == y) {
-            return 0;
-        }
-        return 1;
-    });
+    // // sort in alphabatic order
+    // matches.sort(function (x, y) {
+    //     x = x[0].toLowerCase();
+    //     y = y[0].toLowerCase();
+    //     if (x < y) {
+    //         return -1;
+    //     } else if (x == y) {
+    //         return 0;
+    //     }
+    //     return 1;
+    // });
+    return works;
 }
 
 
@@ -101,16 +142,28 @@ function test() {
     // });
 
     const references = document.getElementById("references").value;
-    const re = /(.+?)\s\((.+?)\)/g;
+    const re = /^(.+?)\s\((.+?)\)/mg;
     while ((match = re.exec(references)) != null) {
-        // matches.push(match);
-        console.log(match);
-        console.log(match.length);
+        const authors = match[1];
+        const date = match[2];
+        for (let author of authors.split(",")) {
+            author = author.replace("&", "").trim();
+            // is initials
+            if (is_initials(author)) {
+                continue;
+            }
+            console.log(author);
+        }
+        console.log("\n");
+        // console.log(match.length);
     }
 }
 
 
 function check() {
-    get_inline_citations();
+    for (let work of get_inline_citations()) {
+        work.check();
+        console.log(work);
+    }
 }
 
