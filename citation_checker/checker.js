@@ -107,19 +107,20 @@ class ReferenceListWork {
         const authors = this.authors;
         const authors_n = authors.length;
         const inline_work_authors = inline_work.get_authors();
-        const inline_work_authors_n = inline_work.get_authors();
-        // test if used "et al."
-        if (author_num >= 3 && inline_work_authors_n === 2) {
-            // inline_work_authors should be ["first author", "et al."]
-            return inline_work_authors[0] === authors[0] && 
-                inline_work_authors[1] === "et al.";
-        } else if (author_num === 1 && inline_work_authors_n === 1) {
-            return inline_work_authors[0] === authors[0];
-        } else if (author_num === 2 && inline_work_authors_n === 2) {
-            return inline_work_authors[0] === authors[0] && 
-                inline_work_authors[1] === authors[1];
+        const inline_work_authors_n = inline_work_authors.length;
+        // inline_work_authors should be ["first author", "et al."]
+        
+        if (inline_work_authors[0] !== authors[0]) {
+            return false;
         }
-        return false;
+        if (authors_n >= 3 && inline_work_authors_n === 2) {
+            // test if used "et al."
+            return inline_work_authors[1] === "et al.";
+        } else if (authors_n === 2 && inline_work_authors_n === 2) {
+            return inline_work_authors[1] === authors[1];
+        } else {
+            return authors_n === 1 && inline_work_authors_n === 1;
+        }
     }
 
     static get_reference_list_dict(str) {
@@ -143,6 +144,18 @@ class ReferenceListWork {
         }
         return works;
     }
+}
+
+
+function reference_list_contains(reference_list, work) {
+    // `reference_list`: Array of ReferenceListWork
+    // `work`: InlineWork
+    for (let work1 of reference_list) {
+        if (work1.equals(work)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -215,18 +228,20 @@ function check() {
     const inline_citations = get_inline_citations();
     for (let work of inline_citations) {
         work.check();
-        console.log(work.author);
-        console.log(work.get_authors());
+        // console.log(work.author);
+        // console.log(work.get_authors());
         const date = work.get_date();
         if (!work.error) {
             if (!(date in reference_list_dict)) {
                 work.set_error("work not in reference list");
-            } else if (reference_list_dict[date]) {
+            } else if (!reference_list_contains(reference_list_dict[date], work)) { // check if contain authors
                 work.set_error("work not in reference list");
             }
         }
         // console.log(work.get_date());
-        console.log(work);
+        if (work.error) {
+            tprint(`${work.author_i}: \t[${work.error}] for inline citation {author: "${work.get_authors()}", date: "${work.get_date()}"}`);
+        }
     }
 }
 
