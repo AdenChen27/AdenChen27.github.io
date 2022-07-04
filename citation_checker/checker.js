@@ -2,6 +2,9 @@
  * TODO:
  * check_date: check (yyyy, month day)/(yyyy, month) format
  * */
+
+// var reference_list_dict;
+
 class InlineWork {
     constructor(author, date, author_i, date_i) {
         // author & date in String
@@ -152,6 +155,7 @@ function reference_list_contains(reference_list, work) {
     // `work`: InlineWork
     for (let work1 of reference_list) {
         if (work1.equals(work)) {
+            work1.used = true;
             return true;
         }
     }
@@ -242,6 +246,22 @@ function check() {
         if (work.error) {
             tprint(`${work.author_i}: \t[${work.error}] for inline citation {author: "${work.get_authors()}", date: "${work.get_date()}"}`);
         }
+    }
+    const unused_references = Array();
+    for (let date in reference_list_dict) {
+        for (let work of reference_list_dict[date]) {
+            if (!work.used) {
+                unused_references.push(work);
+            }
+        }
+    }
+    unused_references.sort(function (x, y) {
+        x = x.index;
+        y = y.index;
+        return x - y;
+    });
+    for (let work of unused_references) {
+        tprint(`unused reference: {author: "${work.authors[0]}", date: "${work.date}"}`);
     }
 }
 
