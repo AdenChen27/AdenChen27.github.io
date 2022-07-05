@@ -16,13 +16,22 @@ body {
     /*font-size: 1.2em;*/
 }
 
-textarea {
+.textarea {
     height: 50em;
     width: 95%;
     font-size: 1.2em;
+    overflow-x: scroll;
+    overflow-y: scroll;
 }
 
-textarea, button {
+.textarea {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    /*overflow: auto;*/
+}
+
+.textarea, button {
     margin: auto;
     display: block;
     /*border-radius: .2em;*/

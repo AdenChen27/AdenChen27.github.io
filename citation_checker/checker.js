@@ -179,14 +179,14 @@ function is_initials(str) {
 function tprint(...args) {
     var temp = document.getElementById("temp");
     for (var i in args) {
-        temp.value += args[i] + " ";
+        temp.innerHTML += args[i] + " ";
     }
-    temp.value += "\n";
+    temp.innerHTML += "<br/>";
 }
 
 function get_inline_citations(){
     var matches = [];
-    const text = document.getElementById("essay").value;
+    const text = document.getElementById("essay").innerHTML;
     const re_inline_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
     // const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
     // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
@@ -220,14 +220,14 @@ function get_inline_citations(){
 
 
 function test() {
-    const references = document.getElementById("references").value;
+    const references = document.getElementById("references").innerHTML;
     const works = ReferenceListWork.get_reference_list_dict(references);
     console.log(works);
 }
 
 
 function check() {
-    const references_text = document.getElementById("references").value;
+    const references_text = document.getElementById("references").innerHTML;
     const reference_list_dict = ReferenceListWork.get_reference_list_dict(references_text);
     const inline_citations = get_inline_citations();
     for (let work of inline_citations) {
