@@ -66,9 +66,9 @@ class IntextWork {
   }
 
   static get_works_from_citation(str, index) {
+    // return an Array of IntextWork
     // str: String of a Parenthetical Citation (without the partentheses)
     // index: start index of str in essay
-    // return an Array of IntextWork
     let works = new Array();
 
     for (let work of str.split(";")) {
@@ -88,27 +88,6 @@ class IntextWork {
         index += date.length + 1;
       }
     }
-    return works;
-  }
-
-  static get_intext_citations() {
-    var matches = [];
-    const text = document.getElementById("essay").innerText;
-    const re_Intext_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
-    // const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
-    // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
-    // const re2 = //g; // Narative Citation
-
-    // matches = everything in parentheses
-    let works = new Array();
-    let match;
-    while ((match = re_Intext_citation.exec(text)) != null) {
-      if (IntextWork.is_citation(match[0])) {
-        works.push(...IntextWork.get_works_from_citation(match[0], match.index));
-      }
-      matches.push(match);
-    }
-    
     return works;
   }
 }
@@ -146,23 +125,60 @@ class ReferenceListWork {
       return authors_n === 1 && Intext_work_authors_n === 1;
     }
   }
+}
 
-  static get_reference_list_dict(str) {
-    // remove empty lines in `references` div
-    // place each line within reference list in `p` tags with id=`reference_line_${index}` (`index` starts from 0)
-    //  (e.g. <p id="reference_line_0">FIRST REFERENCED WORK</p>)
-    // return an Dictionary of `ReferenceListWork` representing the reference list
-    // return = {date1: [authors1, ], }
 
-    // const references_text;
-    const reference_list_div = document.getElementById("references");
+class Essay {
+  // this.div: corresponding `div` in HTML
+  // this.intext_citations: an Array of `IntextWork` objects
 
-    const reference_list_lines = reference_list_div.innerText
+  get_intext_citations() {
+    // read intext citations to `this.intext_citations`
+    var matches = [];
+    const text = document.getElementById("essay").innerText;
+    const re_Intext_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
+    // const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
+    // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
+    // const re2 = //g; // Narative Citation
+
+    // matches = everything in parentheses
+    this.intext_citations = new Array();
+    let match;
+    while ((match = re_Intext_citation.exec(text)) != null) {
+      if (IntextWork.is_citation(match[0])) {
+        this.intext_citations.push(...IntextWork.get_works_from_citation(match[0], match.index));
+      }
+      matches.push(match);
+    }
+    // return works;
+  }
+
+  init() {
+    // read essay content & intext citations & disable `contentEditable`
+    this.div = document.getElementById("essay");
+    this.div.contentEditable = "false";
+    this.get_intext_citations();
+  }
+}
+
+class ReferenceList {
+  // this.div: corresponding `div` in HTML
+  // this.dworks: an Dictionary of `ReferenceListWork` representing the reference list
+  //    return = {date1: [authors1, ], }
+
+  get_reference_list_dict(str) {
+    // 1. reformat `this.div`
+    //    A) remove empty lines in `references` div
+    //    B) place each line within reference list in `p` tags with id=`reference_line_${index}` (`index` starts from 0)
+    //      (e.g. <p id="reference_line_0">FIRST REFERENCED WORK</p>)
+    // 2. read reference list to `this.dworks`
+
+    const reference_list_lines = this.div.innerText
       .split(/\r?\n/)
       .filter(line => line.trim() !== "");
 
     const re = /^(.+?)\s\((.+?)\)/;
-    let works = {};
+    this.dworks = {};
 
     for (let index in reference_list_lines) {
       const line = reference_list_lines[index];
@@ -176,25 +192,30 @@ class ReferenceListWork {
         author => !(is_initials(author))
       );
 
-      if (!(date in works)) {
-        works[date] = new Array();
+      if (!(date in this.dworks)) {
+        this.dworks[date] = new Array();
       }
-      works[date].push(new ReferenceListWork(authors, date, index));
+      this.dworks[date].push(new ReferenceListWork(authors, date, index));
 
       reference_list_lines[index] = `<p id='reference_line_${index}'>${line}</p>`;
       index++;
     }
 
-    reference_list_div.innerHTML = reference_list_lines.join("\n");
-
-    return works;
+    this.div.innerHTML = reference_list_lines.join("\n");
   }
 
-  static reference_list_color_line(line_i, color) {
+  reference_list_color_line(line_i, color) {
     const line = document.getElementById(`reference_line_${line_i}`);
     line.classList.add("unused-reference");
     line.classList.add("error-msg-on-hover");
     line.setAttribute("error-msg", "unused reference");
+  }
+
+  init () {
+    // 1. initialize `this.div` and disable `contentEditable` 
+    // 2. read reference list to `this.dworks`
+    this.div = document.getElementById("references");
+    this.get_reference_list_dict();
   }
 }
 
@@ -243,20 +264,22 @@ function test() {
 
 function check() {
   // disable `contentEditable` and read citations
-  document.getElementById("references").contentEditable = "false";
-  document.getElementById("essay").contentEditable = "false";
-  const reference_list_dict = ReferenceListWork.get_reference_list_dict();
-  const intext_citations = IntextWork.get_intext_citations();
+  const essay = new Essay();
+  const reference_list = new ReferenceList();
+  essay.init();
+  reference_list.init();
+  // document.getElementById("references").contentEditable = "false";
+  // const reference_list_dict = ReferenceListWork.get_reference_list_dict();
 
   // check each work in intext citation
-  for (let work of intext_citations) {
+  for (let work of essay.intext_citations) {
     work.check();
     const date = work.get_date();
     // check if work is in reference list
     if (!work.error) {
-      if (!(date in reference_list_dict)) {
+      if (!(date in reference_list.dworks)) {
         work.set_error("work not in reference list");
-      } else if (!reference_list_contains(reference_list_dict[date], work)) { // check if contain authors
+      } else if (!reference_list_contains(reference_list.dworks[date], work)) { // check if contain authors
         work.set_error("work not in reference list");
       }
     }
@@ -265,21 +288,17 @@ function check() {
       tprint(`${work.author_i}: \t[${work.error}] for in-text citation {author: "${work.get_authors()}", date: "${work.get_date()}"}`);
     }
   }
+
+  // unused reference in reference list
   const unused_references = Array();
-  for (let date in reference_list_dict) {
-    for (let work of reference_list_dict[date]) {
+  for (let date in reference_list.dworks) {
+    for (let work of reference_list.dworks[date]) {
       if (!work.used) {
         unused_references.push(work);
       }
     }
   }
-  unused_references.sort(function(x, y) {
-    x = x.index;
-    y = y.index;
-    return x - y;
-  });
   for (let work of unused_references) {
-    ReferenceListWork.reference_list_color_line(work.index, "rgb(200, 0, 0)")
-    // tprint(`unused reference: {author: "${work.authors[0]}", date: "${work.date}"}`);
+    reference_list.reference_list_color_line(work.index, "rgb(200, 0, 0)")
   }
 }
