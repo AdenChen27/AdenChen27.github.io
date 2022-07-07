@@ -1,6 +1,6 @@
 .container {
     display: block;
-    width: 75%;
+    width: 85%;
     margin: auto;
 }
 
@@ -12,23 +12,21 @@
   flex: 50%;
 }
 
-body {
-    /*font-size: 1.2em;*/
+label {
+    font-size: 1.2em;
 }
 
 .textarea {
     height: 50em;
     width: 95%;
     font-size: 1.2em;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
+    /*overflow-y: scroll;*/
     overflow-y: scroll;
-}
-
-.textarea {
     -moz-appearance: textfield-multiline;
     -webkit-appearance: textarea;
-    border: 1px solid gray;
-    /*overflow: auto;*/
+    border: .2em solid gray;
+    padding: .2em;
 }
 
 .textarea, button {
@@ -47,3 +45,26 @@ button {
 }
 
 
+.unused-reference {
+    color: rgb(150, 0, 0);
+}
+
+.unused-reference:hover {
+    /*color: rgb(150, 150, 0);*/
+}
+
+.error-msg-on-hover:after {
+  content: attr(error-msg);
+  visibility: hidden;
+  opacity: 0;
+  color: red;
+
+  position: relative;
+  left: 1em;
+  z-index: 1;
+}
+
+.error-msg-on-hover:hover:after {
+  opacity: 1;
+  visibility: visible;
+}
