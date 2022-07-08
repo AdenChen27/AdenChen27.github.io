@@ -1,9 +1,3 @@
-/**
- * TODO:
- * check_date: check (yyyy, month day)/(yyyy, month) format
- * */
-
-// var reference_list_dict;
 
 class IntextWork {
   constructor(author, date, author_i, date_i) {
@@ -56,7 +50,7 @@ class IntextWork {
     if (raw_date === "n.d." || /^\d{4}[a-z]?$/.test(raw_date)) {
       return false;
     }
-    return "date error";
+    return "DATE_ERROR";
   }
 
   check() {
@@ -128,9 +122,118 @@ class ReferenceListWork {
 }
 
 
+function string_replace_at(str, s_index, e_index, replacement) {
+  return str.substring(0, s_index) + 
+    replacement + 
+    str.substring(e_index);
+}
+
+
+class StyleControl {
+  // doesn't suport overlap
+  constructor (html_element) {
+    this.html_element = html_element;
+    this.text = html_element.innerText;
+    this.buffer = Array();
+    // array of style change requests that would be implemented with `this.flush()`
+    // style change requests: {"s_index":, "e_index":, "new_str": }
+    // [s_index, e_index)
+  }
+
+  replace(s_index, e_index, new_str) {
+    this.buffer.push({
+      "s_index": s_index, 
+      "e_index": e_index, 
+      "new_str": new_str, 
+    });
+  }
+
+  add_class (s_index, e_index, css_class, tag_name="span") {
+    const new_str = `<${tag_name} class='${css_class}'>` + 
+      this.text.substring(s_index, e_index) + 
+      `</${tag_name}>`;
+    
+    this.replace(s_index, e_index, new_str);
+  }
+
+  add_style (s_index, e_index, style, tag_name="span") {
+    const new_str = `<${tag_name} style='${style}'>` + 
+      this.text.substring(s_index, e_index) + 
+      `</${tag_name}>`;
+
+    this.replace(s_index, e_index, new_str);
+  }
+
+  add_color (s_index, e_index, tag_name="span") {
+    this.add_style(s_index, e_index, tag_name);
+  }
+
+  add(s_index, e_index, attrs, tag_name="span") {
+    let str_attrs = "";
+    for (const key in attrs) {
+      str_attrs += `${key}='${attrs[key]}'`;
+    }
+    const new_str = `<${tag_name} ${str_attrs}>` + 
+      this.text.substring(s_index, e_index) + 
+      `</${tag_name}>`;
+
+    this.replace(s_index, e_index, new_str);
+  }
+
+  add_work(work) {
+    // work: IntextWork
+    if (!work.error) {
+      this.add_class(work.date_i, work.date_i + work.date.length, "in-text-ok");
+      this.add_class(work.author_i, work.author_i + work.author.length, "in-text-ok");
+    }
+    const error_element_attrs = {
+      "error-msg": `${work.error}: {au:"${work.get_authors()}", date:"${work.get_date()}"}`, 
+    };
+    if (work.error == "DATE_ERROR") {
+      error_element_attrs["class"] = "in-text-error in-text-error-date";
+      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+    } else {
+      error_element_attrs["class"] = "in-text-error";
+      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+      this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
+    }
+  }
+
+  flush () {
+    // render all stylistic changes in buffer & return rendered text
+    this.buffer.sort((a, b) => (a["s_index"] - b["s_index"]));
+    let index_add = 0;
+    let html = this.text;
+    for (const i in this.buffer) {
+      let s_index = this.buffer[i]["s_index"];
+      let e_index = this.buffer[i]["e_index"];
+      const new_str = this.buffer[i]["new_str"];
+      if (i > 0 && s_index == this.buffer[i - 1]["s_index"]) {
+        continue;
+      }
+      s_index += index_add;
+      e_index += index_add;
+
+      html = string_replace_at(html, s_index, e_index, new_str);
+
+      index_add += new_str.length - (e_index - s_index);
+    }
+    this.html_element.innerHTML = html;
+  }
+}
+
+
 class Essay {
   // this.div: corresponding `div` in HTML
   // this.intext_citations: an Array of `IntextWork` objects
+  constructor() {
+    // read essay content & intext citations & disable `contentEditable`
+    this.div = document.getElementById("essay");
+    this.div.contentEditable = "false";
+    this.text_style_control = new StyleControl(this.div);
+
+    this.get_intext_citations();
+  }
 
   get_intext_citations() {
     // read intext citations to `this.intext_citations`
@@ -145,26 +248,33 @@ class Essay {
     this.intext_citations = new Array();
     let match;
     while ((match = re_Intext_citation.exec(text)) != null) {
+      // color parentheses
+      const left_index = match.index - 1;
+      const right_index = match.index + match[0].length;
+      this.text_style_control.add_class(left_index, left_index + 1, "in-text-parenthesis");
+      this.text_style_control.add_class(right_index, right_index + 1, "in-text-parenthesis");
+      // add to `matches.intext_citations`
       if (IntextWork.is_citation(match[0])) {
         this.intext_citations.push(...IntextWork.get_works_from_citation(match[0], match.index));
       }
       matches.push(match);
     }
-    // return works;
-  }
 
-  init() {
-    // read essay content & intext citations & disable `contentEditable`
-    this.div = document.getElementById("essay");
-    this.div.contentEditable = "false";
-    this.get_intext_citations();
+    // console.log(this.text_style_control.buffer);
   }
 }
+
 
 class ReferenceList {
   // this.div: corresponding `div` in HTML
   // this.dworks: an Dictionary of `ReferenceListWork` representing the reference list
   //    return = {date1: [authors1, ], }
+  constructor () {
+    // 1. initialize `this.div` and disable `contentEditable` 
+    // 2. read reference list to `this.dworks`
+    this.div = document.getElementById("references");
+    this.get_reference_list_dict();
+  }
 
   get_reference_list_dict(str) {
     // 1. reformat `this.div`
@@ -209,13 +319,6 @@ class ReferenceList {
     line.classList.add("unused-reference");
     line.classList.add("error-msg-on-hover");
     line.setAttribute("error-msg", "unused reference");
-  }
-
-  init () {
-    // 1. initialize `this.div` and disable `contentEditable` 
-    // 2. read reference list to `this.dworks`
-    this.div = document.getElementById("references");
-    this.get_reference_list_dict();
   }
 }
 
@@ -266,8 +369,6 @@ function check() {
   // disable `contentEditable` and read citations
   const essay = new Essay();
   const reference_list = new ReferenceList();
-  essay.init();
-  reference_list.init();
   // document.getElementById("references").contentEditable = "false";
   // const reference_list_dict = ReferenceListWork.get_reference_list_dict();
 
@@ -278,16 +379,20 @@ function check() {
     // check if work is in reference list
     if (!work.error) {
       if (!(date in reference_list.dworks)) {
-        work.set_error("work not in reference list");
+        work.set_error("NOT_IN_REFERENCE_LIST");
       } else if (!reference_list_contains(reference_list.dworks[date], work)) { // check if contain authors
-        work.set_error("work not in reference list");
+        work.set_error("NOT_IN_REFERENCE_LIST");
       }
     }
     // print error message
-    if (work.error) {
-      tprint(`${work.author_i}: \t[${work.error}] for in-text citation {author: "${work.get_authors()}", date: "${work.get_date()}"}`);
+    if (work.error ) {
+      tprint(`(${work.author_i}, ${work.date_i}): \t` + 
+        `[${work.error}] for in-text citation:` + 
+        `{au:"${work.get_authors()}", date:"${work.get_date()}"}`);
     }
+    essay.text_style_control.add_work(work); // CHANGE THIS
   }
+  essay.text_style_control.flush();
 
   // unused reference in reference list
   const unused_references = Array();
@@ -301,4 +406,5 @@ function check() {
   for (let work of unused_references) {
     reference_list.reference_list_color_line(work.index, "rgb(200, 0, 0)")
   }
+
 }

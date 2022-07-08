@@ -1,7 +1,7 @@
 .container {
-    display: block;
-    width: 85%;
-    margin: auto;
+  display: block;
+  width: 85%;
+  margin: auto;
 }
 
 .row {
@@ -13,58 +13,91 @@
 }
 
 label {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .textarea {
-    height: 50em;
-    width: 95%;
-    font-size: 1.2em;
-    /*overflow-x: scroll;*/
-    /*overflow-y: scroll;*/
-    overflow-y: scroll;
-    -moz-appearance: textfield-multiline;
-    -webkit-appearance: textarea;
-    border: .2em solid gray;
-    padding: .2em;
+  position: relative;
+  height: 50em;
+  width: 95%;
+  font-size: 1.2em;
+  /*overflow-x: scroll;*/
+  /*overflow-y: scroll;*/
+  overflow-y: scroll;
+  -moz-appearance: textfield-multiline;
+  -webkit-appearance: textarea;
+  border: .2em solid gray;
+  padding: .2em;
+  white-space: pre-wrap;
 }
 
-.textarea, button {
-    margin: auto;
-    display: block;
-    /*border-radius: .2em;*/
-    border-radius: .3em;
+.textarea,
+button {
+  margin: auto;
+  display: block;
+  /*border-radius: .2em;*/
+  border-radius: .3em;
 }
 
 button {
-    padding: .2em;
-    background-color: white;
-    color: black;
-    font-size: 1.5em;
-    width: 20em;
+  padding: .2em;
+  background-color: white;
+  color: black;
+  font-size: 1.5em;
+  width: 20em;
 }
 
 
+/* reference list error */
 .unused-reference {
-    color: rgb(150, 0, 0);
+  color: rgb(150, 0, 0);
 }
 
 .unused-reference:hover {
-    /*color: rgb(150, 150, 0);*/
+  /*color: rgb(150, 150, 0);*/
 }
 
-.error-msg-on-hover:after {
-  content: attr(error-msg);
-  visibility: hidden;
-  opacity: 0;
-  color: red;
+/* in-text citation error */
+.in-text-parenthesis {
+  color: blue;
+  font-weight: bold;
+}
 
-  position: relative;
-  left: 1em;
+.in-text-error {
+  color: rgb(200, 0, 0);
+  /*font-weight: bold;*/
+}
+
+/* hover error msg */
+.error-msg-on-hover:after,
+.in-text-error:after {
+  content: attr(error-msg);
+  display: none;
+  padding: 0 .2em;
+  margin: 0 .2em;
+
+  border: 2px solid black;
+  border-radius: 5px;
+
+  background-color: white;
+
+  position: absolute;
   z-index: 1;
 }
 
-.error-msg-on-hover:hover:after {
-  opacity: 1;
-  visibility: visible;
+.error-msg-on-hover:hover:after,
+.in-text-error:hover:after {
+  display: block;
+}
+
+.in-text-error-date {
+  color: #d2691e;
+}
+
+.in-text-ok {
+  color: #009933;
+}
+
+p {
+  margin: 0;
 }
