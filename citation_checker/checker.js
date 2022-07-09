@@ -1,6 +1,6 @@
 
 class IntextWork {
-  constructor(author, date, author_i, date_i) {
+  constructor(author, date, author_i, date_i, error=false) {
     // author & date in String
     // pre-`trim()` (might have spaces & stuff like "see also: ")
     this.author = author;
@@ -8,6 +8,7 @@ class IntextWork {
     // start index of author & date in essay
     this.author_i = author_i;
     this.date_i = date_i;
+    this.error = error;
   }
 
   get_date() {
@@ -30,16 +31,51 @@ class IntextWork {
 
   set_error(error) {
     this.error = error;
+    // return this;
   }
 
-  static is_citation(str) {
-    // includes date
+  static is_parenthetical_citation(str) {
+    // check if includes date
     return /, .*?\d{4}/.test(str) || str.includes(", n.d.")
   }
 
   static is_date(str) {
     str = str.trim();
     return str.endsWith("n.d.") || /\d{4}$/.test(str);
+  }
+
+  static get_narrative_citation(str, index, essay_text) {
+    // return `IntextWork` if found author
+    // return `IntextWork` with `author`="" when can't find author & `str` is date
+    // return false when 
+    // str: String of whatever is in the parentheses
+    // index: start index of str in essay
+    // essay_text: essay in str
+    if (!this.is_date(str)) {
+      return false;
+    }
+    essay_text = essay_text.substring(0, index - 1)
+
+    // check "(author) et al. "
+    let match = /(\S+?) *?et *?al\. *?$/.exec(essay_text);
+    if (match) {
+      return new this(match[0], str, match.index, index);
+    }
+    
+    // check "(author1) and (author2) "
+    match = /(\S+?) *?and *?(\S+?) *$/.exec(essay_text);
+    if (match) {
+      return new this(match[0], str, match.index, index);
+    }
+
+    // check "(author) " (and author doesn't start with lower case letter)
+    match = /(\S+?) *$/.exec(essay_text);
+    if (match && !/[a-z]/.test(match[0][0])) {
+      return new this(match[0], str, match.index, index);
+    }
+
+    // can't find nothing
+    return new this("", str, index, index);
   }
 
   check_date() {
@@ -53,10 +89,22 @@ class IntextWork {
     return "DATE_ERROR";
   }
 
+  check_author() {
+    if (!this.author) {
+      return "CANNOT_FIND_AUTHOR";
+    }
+    return false;
+  }
+
   check() {
     // check citation of work
     // stor citation error at `self.error`
-    this.error = this.check_date();
+    if (!this.error) {
+      this.error = this.check_author();
+    }
+    if (!this.error) {
+      this.error = this.check_date();
+    }
   }
 
   static get_works_from_citation(str, index) {
@@ -123,6 +171,7 @@ class ReferenceListWork {
 
 
 function string_replace_at(str, s_index, e_index, replacement) {
+  // replace `str`[`s_index`, `e_index` - 1] to `replacement`
   return str.substring(0, s_index) + 
     replacement + 
     str.substring(e_index);
@@ -229,6 +278,7 @@ class Essay {
   constructor() {
     // read essay content & intext citations & disable `contentEditable`
     this.div = document.getElementById("essay");
+    this.text = this.div.innerText.replace("’", "'");
     this.div.contentEditable = "false";
     this.text_style_control = new StyleControl(this.div);
 
@@ -236,31 +286,37 @@ class Essay {
   }
 
   get_intext_citations() {
-    // read intext citations to `this.intext_citations`
-    var matches = [];
-    const text = document.getElementById("essay").innerText;
-    const re_Intext_citation = /(?<=\().*?(?=\))/g; // Parenthetical Citations
-    // const re_sub_citation = /(?<=;).*?|.*?(?=;))/g; // get each citation inside a pair of parentheses
-    // const a = /(?<=\()(.*?;?)+?.*?(?=\))/g;
-    // const re2 = //g; // Narative Citation
-
-    // matches = everything in parentheses
+    // read in-text citations to `this.intext_citations`
+    const re_Intext_citation = /(?<=\().*?(?=\))/g;
     this.intext_citations = new Array();
     let match;
-    while ((match = re_Intext_citation.exec(text)) != null) {
+    while ((match = re_Intext_citation.exec(this.text)) != null) {
       // color parentheses
       const left_index = match.index - 1;
       const right_index = match.index + match[0].length;
       this.text_style_control.add_class(left_index, left_index + 1, "in-text-parenthesis");
       this.text_style_control.add_class(right_index, right_index + 1, "in-text-parenthesis");
-      // add to `matches.intext_citations`
-      if (IntextWork.is_citation(match[0])) {
+      
+      // parenthetical citations
+      if (IntextWork.is_parenthetical_citation(match[0])) {
         this.intext_citations.push(...IntextWork.get_works_from_citation(match[0], match.index));
+        continue;
       }
-      matches.push(match);
+      
+      // narrative citationsz
+      const work = IntextWork.get_narrative_citation(match[0], match.index, this.text);
+      if (work) {
+        this.intext_citations.push(work);
+        // console.log("HERE!!!!", work);
+        // if (work.error) {
+        //   console.log("DAMN:", work.error, work, this.intext_citations.slice(-1)[0]);
+        //   // console.log(this.intext_citations);
+        // }
+      } else {
+        // can't recognize what's in the parentheses
+        console.log("don't recognize", match);
+      }
     }
-
-    // console.log(this.text_style_control.buffer);
   }
 }
 
@@ -369,28 +425,28 @@ function check() {
   // disable `contentEditable` and read citations
   const essay = new Essay();
   const reference_list = new ReferenceList();
-  // document.getElementById("references").contentEditable = "false";
-  // const reference_list_dict = ReferenceListWork.get_reference_list_dict();
+  document.getElementById("main-div").style.height = "95vh";
+  document.getElementById("check-button").style.display = "none";
 
   // check each work in intext citation
   for (let work of essay.intext_citations) {
+    // check if work is in reference list
     work.check();
     const date = work.get_date();
-    // check if work is in reference list
     if (!work.error) {
       if (!(date in reference_list.dworks)) {
-        work.set_error("NOT_IN_REFERENCE_LIST");
+        work.set_error("DATE_NOT_IN_REF_LIST");
       } else if (!reference_list_contains(reference_list.dworks[date], work)) { // check if contain authors
-        work.set_error("NOT_IN_REFERENCE_LIST");
+        work.set_error("NOT_IN_REF_LIST");
       }
     }
     // print error message
-    if (work.error ) {
+    if (work.error) {
       tprint(`(${work.author_i}, ${work.date_i}): \t` + 
         `[${work.error}] for in-text citation:` + 
         `{au:"${work.get_authors()}", date:"${work.get_date()}"}`);
     }
-    essay.text_style_control.add_work(work); // CHANGE THIS
+    essay.text_style_control.add_work(work);
   }
   essay.text_style_control.flush();
 
