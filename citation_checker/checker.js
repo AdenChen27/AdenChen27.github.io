@@ -17,26 +17,53 @@ class IntextWork {
   }
 
   get_authors() {
+    // get authors from `this.author`
     // return an Array of author names in string
-    // "X & Y" -> ["X", "Y"]
+    // "X & Y"/"X and Y" -> ["X", "Y"]
     // "X et al." -> ["X", "et al."]
-    let authors = this.author.split("&"); // CHECK FORMAT
+    
+    // test "X and Y"
+    let authors;
+    let match = /(\S+?) +?and +?(\S+?) *$/.exec(this.author);
+    if (match) {
+      authors = match.slice(1);
+    } else {
+      authors = this.author.split("&");
+    }
     const author_n = authors.length;
+
+    // "X et al." -> ["X", "et al."]
     if (authors[author_n - 1].includes("et al.")) {
       authors[author_n - 1] = authors[author_n - 1].replace("et al.", "");
       authors.push("et al.");
     }
-    return authors.map(str => (str.trim()));
+
+    // delete apostrophes and the "see also: " stuff
+    for (const i in authors) {
+      // apostrophes
+      if (authors[i].endsWith("'s")) {
+        authors[i] = authors[i].slice(0, -2);
+      } else if (authors[i].endsWith("'")) {
+        authors[i] = authors[i].slice(0, -1);
+      }
+
+      // "see also" stuff
+      match = /(see)( also)?:? (\S+?) *$/.exec(authors[i]);
+      if (match) {
+        authors[i] = match[3];
+      }
+      authors[i] = authors[i].trim();
+    }
+    return authors;
   }
 
   set_error(error) {
     this.error = error;
-    // return this;
   }
 
   static is_parenthetical_citation(str) {
     // check if includes date
-    return /, .*?\d{4}/.test(str) || str.includes(", n.d.")
+    return /, +?.*?\d{4}/.test(str) || str.includes(", n.d.")
   }
 
   static is_date(str) {
@@ -57,19 +84,19 @@ class IntextWork {
     essay_text = essay_text.substring(0, index - 1)
 
     // check "(author) et al. "
-    let match = /(\S+?) *?et *?al\. *?$/.exec(essay_text);
+    let match = /(\S+?) +?et +?al\. *?$/.exec(essay_text);
     if (match) {
       return new this(match[0], str, match.index, index);
     }
     
     // check "(author1) and (author2) "
-    match = /(\S+?) *?and *?(\S+?) *$/.exec(essay_text);
+    match = /(\S+?) +?and +?(\S+?) *$/.exec(essay_text);
     if (match) {
       return new this(match[0], str, match.index, index);
     }
 
     // check "(author) " (and author doesn't start with lower case letter)
-    match = /(\S+?) *$/.exec(essay_text);
+    match = /(\S+?) +$/.exec(essay_text);
     if (match && !/[a-z]/.test(match[0][0])) {
       return new this(match[0], str, match.index, index);
     }
@@ -116,17 +143,17 @@ class IntextWork {
     for (let work of str.split(";")) {
       let elements = work.split(",");
 
-      // elements[0] = elements[0].replace("see also", "").trim();
-      // elements = elements.map(element => (element.trim()));
-
       const author = elements[0];
       const author_index = index;
 
       index += author.length + 1;
 
       for (let date of elements.slice(1)) {
-        // console.log(author, date, index, author_index);
-        works.push(new IntextWork(author, date, author_index, index, false));
+        if (this.is_date(date)) {
+          works.push(new IntextWork(author, date, author_index, index, false));
+        } else {
+          works.push(new IntextWork(author, date, author_index, index, "CANNOT_CHECK_THIS_YET"));
+        }
         index += date.length + 1;
       }
     }
@@ -241,6 +268,11 @@ class StyleControl {
     if (work.error == "DATE_ERROR") {
       error_element_attrs["class"] = "in-text-error in-text-error-date";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+    } else if (work.error == "CANNOT_CHECK_THIS_YET") {
+      error_element_attrs["class"] = "in-text-maybe-error";
+      error_element_attrs["error-msg"] = "CANNOT_CHECK_THIS_YET";
+      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+      this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
     } else {
       error_element_attrs["class"] = "in-text-error";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
@@ -278,7 +310,7 @@ class Essay {
   constructor() {
     // read essay content & intext citations & disable `contentEditable`
     this.div = document.getElementById("essay");
-    this.text = this.div.innerText.replace("’", "'");
+    this.text = this.div.innerText.replaceAll("’", "'");
     this.div.contentEditable = "false";
     this.text_style_control = new StyleControl(this.div);
 
@@ -303,18 +335,18 @@ class Essay {
         continue;
       }
       
-      // narrative citationsz
+      // narrative citations
       const work = IntextWork.get_narrative_citation(match[0], match.index, this.text);
       if (work) {
         this.intext_citations.push(work);
-        // console.log("HERE!!!!", work);
-        // if (work.error) {
-        //   console.log("DAMN:", work.error, work, this.intext_citations.slice(-1)[0]);
-        //   // console.log(this.intext_citations);
-        // }
       } else {
         // can't recognize what's in the parentheses
-        console.log("don't recognize", match);
+        this.intext_citations.push(new IntextWork(match[0], match[0], match.index, match.index, "CANNOT_CHECK_THIS_YET"));
+        // this.text_style_control.add(
+        //   match.index, 
+        //   match.index + match[0].length, 
+        //   {"class": "in-text-maybe-error", "error-msg": "CANNOT_CHECK_THIS_YET"}
+        // );
       }
     }
   }
@@ -425,7 +457,7 @@ function check() {
   // disable `contentEditable` and read citations
   const essay = new Essay();
   const reference_list = new ReferenceList();
-  document.getElementById("main-div").style.height = "95vh";
+  document.getElementById("main-div").style.height = "90vh";
   document.getElementById("check-button").style.display = "none";
 
   // check each work in intext citation
