@@ -1,6 +1,6 @@
 
 class IntextWork {
-  constructor(author, date, author_i, date_i, error=false) {
+  constructor(author, date, author_i, date_i, error=false, p_index=false) {
     // author & date in String
     // pre-`trim()` (might have spaces & stuff like "see also: ")
     this.author = author;
@@ -9,11 +9,22 @@ class IntextWork {
     this.author_i = author_i;
     this.date_i = date_i;
     this.error = error;
+
+    // index of parentheses pair (for checking authors' order)
+    if (p_index) {
+      this.p_index = p_index;
+    } else {
+      this.p_index = author_i;
+    }
   }
 
   get_date() {
     // return date
-    return this.date.trim();
+    let date = this.date.trim();
+    if (/[0-2]\d{3}[a-z]/.test(date)) {
+      date = date.substring(0, 4);
+    }
+    return date;
   }
 
   get_authors() {
@@ -139,23 +150,25 @@ class IntextWork {
     // str: String of a Parenthetical Citation (without the partentheses)
     // index: start index of str in essay
     let works = [];
+    let cur_index = index;
 
     for (let work of str.split(";")) {
       let elements = work.split(",");
 
       const author = elements[0];
-      const author_index = index;
+      const author_index = cur_index;
 
-      index += author.length + 1;
+      cur_index += author.length + 1;
 
       for (let date of elements.slice(1)) {
         if (this.is_date(date)) {
-          works.push(new IntextWork(author, date, author_index, index));
+          works.push(new IntextWork(author, date, author_index, cur_index, false, index));
         } else {
-          works.push(new IntextWork(author, date, author_index, index, "CANNOT_CHECK_THIS_YET"));
+          works.push(new IntextWork(author, date, author_index, cur_index, "CANNOT_CHECK_THIS_YET", index));
         }
-        index += date.length + 1;
+        cur_index += date.length + 1;
       }
+
     }
     return works;
   }
