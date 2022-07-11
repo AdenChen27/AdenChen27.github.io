@@ -40,10 +40,11 @@ class IntextWork {
 
     // delete apostrophes and the "see also: " stuff
     for (const i in authors) {
+      authors[i] = authors[i].trim();
       // apostrophes
-      if (authors[i].endsWith("'s")) {
+      if (authors[i].endsWith("’s")) {
         authors[i] = authors[i].slice(0, -2);
-      } else if (authors[i].endsWith("'")) {
+      } else if (authors[i].endsWith("’")) {
         authors[i] = authors[i].slice(0, -1);
       }
 
@@ -52,7 +53,6 @@ class IntextWork {
       if (match) {
         authors[i] = match[3];
       }
-      authors[i] = authors[i].trim();
     }
     return authors;
   }
@@ -96,12 +96,12 @@ class IntextWork {
     }
 
     // check "(author) " (and author doesn't start with lower case letter)
-    match = /(\S+?) +$/.exec(essay_text);
+    match = /(\S+?) *$/.exec(essay_text);
     if (match && !/[a-z]/.test(match[0][0])) {
       return new this(match[0], str, match.index, index);
     }
 
-    // can't find nothing
+    // can't match nothing
     return new this("", str, index, index);
   }
 
@@ -150,7 +150,7 @@ class IntextWork {
 
       for (let date of elements.slice(1)) {
         if (this.is_date(date)) {
-          works.push(new IntextWork(author, date, author_index, index, false));
+          works.push(new IntextWork(author, date, author_index, index));
         } else {
           works.push(new IntextWork(author, date, author_index, index, "CANNOT_CHECK_THIS_YET"));
         }
@@ -247,7 +247,7 @@ class StyleControl {
   add(s_index, e_index, attrs, tag_name="span") {
     let str_attrs = "";
     for (const key in attrs) {
-      str_attrs += `${key}='${attrs[key]}'`;
+      str_attrs += ` ${key}='${attrs[key]}'`;
     }
     const new_str = `<${tag_name} ${str_attrs}>` + 
       this.text.substring(s_index, e_index) + 
@@ -289,6 +289,7 @@ class StyleControl {
       let s_index = this.buffer[i]["s_index"];
       let e_index = this.buffer[i]["e_index"];
       const new_str = this.buffer[i]["new_str"];
+
       if (i > 0 && s_index == this.buffer[i - 1]["s_index"]) {
         continue;
       }
@@ -310,7 +311,7 @@ class Essay {
   constructor() {
     // read essay content & intext citations & disable `contentEditable`
     this.div = document.getElementById("essay");
-    this.text = this.div.innerText.replaceAll("’", "'");
+    this.text = this.div.innerText.replaceAll("'", "’");
     this.div.contentEditable = "false";
     this.text_style_control = new StyleControl(this.div);
 
