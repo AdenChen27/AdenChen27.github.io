@@ -39,7 +39,7 @@ class IntextWork {
     }
 
     // delete apostrophes and the "see also: " stuff
-    for (const i in authors) {
+    for (let i = 0; i < authors.length; i++) {
       authors[i] = authors[i].trim();
       // apostrophes
       if (authors[i].endsWith("’s")) {
@@ -63,7 +63,7 @@ class IntextWork {
 
   static is_parenthetical_citation(str) {
     // check if includes date
-    return /, +?.*?\d{4}/.test(str) || str.includes(", n.d.")
+    return /, +?.*?\d{4}/.test(str) || str.includes(", n.d.");
   }
 
   static is_date(str) {
@@ -81,7 +81,7 @@ class IntextWork {
     if (!this.is_date(str)) {
       return false;
     }
-    essay_text = essay_text.substring(0, index - 1)
+    essay_text = essay_text.substring(0, index - 1);
 
     // check "(author) et al. "
     let match = /(\S+?) +?et +?al\. *?$/.exec(essay_text);
@@ -138,7 +138,7 @@ class IntextWork {
     // return an Array of IntextWork
     // str: String of a Parenthetical Citation (without the partentheses)
     // index: start index of str in essay
-    let works = new Array();
+    let works = [];
 
     for (let work of str.split(";")) {
       let elements = work.split(",");
@@ -282,15 +282,15 @@ class StyleControl {
 
   flush () {
     // render all stylistic changes in buffer & return rendered text
-    this.buffer.sort((a, b) => (a["s_index"] - b["s_index"]));
+    this.buffer.sort((a, b) => (a.s_index - b.s_index));
     let index_add = 0;
     let html = this.text;
-    for (const i in this.buffer) {
-      let s_index = this.buffer[i]["s_index"];
-      let e_index = this.buffer[i]["e_index"];
-      const new_str = this.buffer[i]["new_str"];
+    for (let i = 0; i < this.buffer.length; i++) {
+      let s_index = this.buffer[i].s_index;
+      let e_index = this.buffer[i].e_index;
+      const new_str = this.buffer[i].new_str;
 
-      if (i > 0 && s_index == this.buffer[i - 1]["s_index"]) {
+      if (i > 0 && s_index == this.buffer[i - 1].s_index) {
         continue;
       }
       s_index += index_add;
@@ -321,7 +321,7 @@ class Essay {
   get_intext_citations() {
     // read in-text citations to `this.intext_citations`
     const re_Intext_citation = /(?<=\().*?(?=\))/g;
-    this.intext_citations = new Array();
+    this.intext_citations = [];
     let match;
     while ((match = re_Intext_citation.exec(this.text)) != null) {
       // color parentheses
@@ -379,7 +379,8 @@ class ReferenceList {
     const re = /^(.+?)\s\((.+?)\)/;
     this.dworks = {};
 
-    for (let index in reference_list_lines) {
+    // for (let index in reference_list_lines) {
+    for (let index = 0; index < reference_list_lines.length; index++) {
       const line = reference_list_lines[index];
       const match = re.exec(line);
       let authors = match[1].split(",");
@@ -392,12 +393,12 @@ class ReferenceList {
       );
 
       if (!(date in this.dworks)) {
-        this.dworks[date] = new Array();
+        this.dworks[date] = [];
       }
       this.dworks[date].push(new ReferenceListWork(authors, date, index));
 
       reference_list_lines[index] = `<p id='reference_line_${index}'>${line}</p>`;
-      index++;
+      // index++;
     }
 
     this.div.innerHTML = reference_list_lines.join("\n");
@@ -439,11 +440,11 @@ function is_initials(str) {
 
 
 function tprint(...args) {
-  var temp = document.getElementById("temp");
-  for (var i in args) {
-    temp.innerText += args[i] + " ";
-  }
-  temp.innerText += "\n";
+  // var temp = document.getElementById("temp");
+  // for (var i in args) {
+  //   temp.innerText += args[i] + " ";
+  // }
+  // temp.innerText += "\n";
 }
 
 
@@ -493,7 +494,7 @@ function check() {
     }
   }
   for (let work of unused_references) {
-    reference_list.reference_list_color_line(work.index, "rgb(200, 0, 0)")
+    reference_list.reference_list_color_line(work.index, "rgb(200, 0, 0)");
   }
 
 }
