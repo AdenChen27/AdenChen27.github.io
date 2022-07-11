@@ -6,6 +6,7 @@
     <title>Citation Checker</title>
 
     <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="demo.js"></script>
     <script src="checker.js"></script>
     
 </head>
@@ -28,9 +29,14 @@
 
     <br/>
 
-    <script src="dev_init.js"></script><!-- DISABLE -->
-
-    <button type="button" id="check-button" onclick="check()">check</button>
+    <div class="row" id="button-section">
+        <div class="column">
+            <button type="button" onclick="demo();check()">Demo</button>
+        </div>
+        <div class="column">
+            <button type="button" onclick="check()">check</button>
+        </div>
+    </div>
     <!-- <textarea id="temp"></textarea> -->
     <div class="container" style="display:none">
         <div id="temp" class="textarea"></div>

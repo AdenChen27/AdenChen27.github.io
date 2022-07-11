@@ -458,7 +458,7 @@ function check() {
   const essay = new Essay();
   const reference_list = new ReferenceList();
   document.getElementById("main-div").style.height = "90vh";
-  document.getElementById("check-button").style.display = "none";
+  document.getElementById("button-section").style.display = "none";
 
   // check each work in intext citation
   for (let work of essay.intext_citations) {

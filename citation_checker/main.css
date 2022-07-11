@@ -1,4 +1,4 @@
-#check-button {
+#button-section {
   margin-top: 2em;
 }
 
@@ -38,7 +38,7 @@ label {
   white-space: pre-wrap;
   
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15pt;
+  font-size: 13pt;
 }
 
 .textarea,
