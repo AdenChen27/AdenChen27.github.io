@@ -395,15 +395,15 @@ class ReferenceList {
     const re = /^(.+?)\s\((.+?)\)/;
     this.dworks = {};
 
-    let index = 0;
-    // for (let index in reference_list_lines) {
-    for (let line_i = 0; line_i < reference_list_lines.length; line_i++) {
-      const line = reference_list_lines[line_i];
+    for (let index = 0; index < reference_list_lines.length; index++) {
+      const line = reference_list_lines[index];
+      reference_list_lines[index] = `<p id='reference_line_${index}'>${line}</p>`;
+      
+      // try match reference
       const match = re.exec(line);
       if (!match) {
         continue;
       }
-      console.log(match);
       let authors = match[1].split(",");
       const date = match[2];
 
@@ -417,9 +417,6 @@ class ReferenceList {
         this.dworks[date] = [];
       }
       this.dworks[date].push(new ReferenceListWork(authors, date, index));
-
-      reference_list_lines[index] = `<p id='reference_line_${index}'>${line}</p>`;
-      index++;
     }
 
     this.div.innerHTML = reference_list_lines.join("\n");
@@ -469,13 +466,6 @@ function tprint(...args) {
 }
 
 
-function test() {
-  const references = document.getElementById("references").innerText;
-  const works = ReferenceListWork.get_reference_list_dict(references);
-  console.log(works);
-}
-
-
 function check() {
   // disable `contentEditable` and read citations
   const essay = new Essay();
@@ -515,8 +505,7 @@ function check() {
     }
   }
   for (let work of unused_references) {
-    reference_list.set_error(work.index, `unused-reference: work{au:[${work.authors}], date:"${work.date}"}`);
-    console.log(work);
+    reference_list.set_error(work.index, `unused reference: work{au:[${work.authors}], date:"${work.date}"}`);
   }
 
 }
