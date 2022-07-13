@@ -509,3 +509,20 @@ function check() {
   }
 
 }
+
+document.getElementById("essay").addEventListener("paste", (event) => {
+    event.preventDefault();
+
+    let paste = (event.clipboardData || window.clipboardData).getData('text');
+    console.log(paste);
+    document.getElementById("essay").innerHTML = paste;
+});
+
+
+document.getElementById("references").addEventListener("paste", (event) => {
+    event.preventDefault();
+
+    let paste = (event.clipboardData || window.clipboardData).getData('text');
+    console.log(paste);
+    document.getElementById("references").innerHTML = paste;
+});

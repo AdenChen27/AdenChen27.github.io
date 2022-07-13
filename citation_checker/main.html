@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Citation Checker</title>
-
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="demo.js"></script>
-    <script src="checker.js"></script>
-    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Citation Checker</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
 </head>
+
 <body>
-    
-    <div class="container" id="main-div">
-        <div class="row">
-            <div class="column">
-                <label>Essay:</label>
-                <!-- <textarea id="essay"></textarea> -->
-                <div id="essay" class="textarea" contenteditable="true"></div>
-            </div>
-            <div class="column">
-                <label>Reference List:</label>
-                <!-- <textarea id="references"></textarea> -->
-                <div id="references" class="textarea" contenteditable="true"></div>
-            </div>
-        </div>
+  <div class="container" id="main-div">
+    <div class="row">
+      <div class="column">
+        <label>Essay:</label>
+        <!-- <textarea id="essay"></textarea> -->
+        <div id="essay" class="textarea" contenteditable="true"></div>
+      </div>
+      <div class="column">
+        <label>Reference List:</label>
+        <!-- <textarea id="references"></textarea> -->
+        <div id="references" class="textarea" contenteditable="true"></div>
+      </div>
     </div>
-
-    <br/>
-
+  
+    <br />
+  
     <div class="row" id="button-section">
-        <div class="column">
-            <button type="button" onclick="demo();">Demo</button>
-        </div>
-        <div class="column">
-            <button type="button" onclick="check()">check</button>
-        </div>
+      <div class="column">
+        <button type="button" onclick="demo();">Demo</button>
+      </div>
+      <div class="column">
+        <button type="button" onclick="check()">check</button>
+      </div>
     </div>
-    <!-- <textarea id="temp"></textarea> -->
-    <div class="container" style="display:none">
-        <div id="temp" class="textarea"></div>
-    </div>
+  </div>
+  <!-- <textarea id="temp"></textarea> -->
+  <!-- <div class="container" style="display:none">
+    <div id="temp" class="textarea"></div>
+  </div> -->
+
+  <script src="demo.js"></script>
+  <script src="checker.js"></script>
 </body>
+
 </html>
