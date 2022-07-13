@@ -395,10 +395,15 @@ class ReferenceList {
     const re = /^(.+?)\s\((.+?)\)/;
     this.dworks = {};
 
+    let index = 0;
     // for (let index in reference_list_lines) {
-    for (let index = 0; index < reference_list_lines.length; index++) {
-      const line = reference_list_lines[index];
+    for (let line_i = 0; line_i < reference_list_lines.length; line_i++) {
+      const line = reference_list_lines[line_i];
       const match = re.exec(line);
+      if (!match) {
+        continue;
+      }
+      console.log(match);
       let authors = match[1].split(",");
       const date = match[2];
 
@@ -414,17 +419,17 @@ class ReferenceList {
       this.dworks[date].push(new ReferenceListWork(authors, date, index));
 
       reference_list_lines[index] = `<p id='reference_line_${index}'>${line}</p>`;
-      // index++;
+      index++;
     }
 
     this.div.innerHTML = reference_list_lines.join("\n");
   }
 
-  reference_list_color_line(line_i, color) {
+  set_error(line_i, error_msg) {
     const line = document.getElementById(`reference_line_${line_i}`);
     line.classList.add("unused-reference");
     line.classList.add("error-msg-on-hover");
-    line.setAttribute("error-msg", "unused reference");
+    line.setAttribute("error-msg", error_msg);
   }
 }
 
@@ -510,7 +515,8 @@ function check() {
     }
   }
   for (let work of unused_references) {
-    reference_list.reference_list_color_line(work.index, "rgb(200, 0, 0)");
+    reference_list.set_error(work.index, `unused-reference: work{au:[${work.authors}], date:"${work.date}"}`);
+    console.log(work);
   }
 
 }
