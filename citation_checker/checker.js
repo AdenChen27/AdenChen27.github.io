@@ -333,11 +333,14 @@ class Essay {
 
   get_intext_citations() {
     // read in-text citations to `this.intext_citations`
-    const re_Intext_citation = /(?<=\().*?(?=\))/g;
+    // const re_Intext_citation = /(?<=\().*?(?=\))/g;
+    const re_Intext_citation = /\(.*?(?=\))/g;
     this.intext_citations = [];
     let match;
     while ((match = re_Intext_citation.exec(this.text)) != null) {
       // color parentheses
+      match[0] = match[0].substring(1);
+      match.index++;
       const left_index = match.index - 1;
       const right_index = match.index + match[0].length;
       this.text_style_control.add_class(left_index, left_index + 1, "in-text-parenthesis");
