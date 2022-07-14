@@ -113,6 +113,7 @@ button {
 
 .should-delete {
   text-decoration: line-through;
+  color: darkred;
 }
 
 p {

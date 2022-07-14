@@ -40,10 +40,10 @@ function is_date(str) {
 
 
 function get_year_from_date(str) {
-  // return "ND" if "n.d."
+  // return "n.d." if "n.d."
   str = str.trim();
   if (/n\. ?d\./.test(str)) {
-    return "ND";
+    return "n.d.";
   }
   if (/^\d{4}/.test(str)) {
     return str.substring(0, 4);
@@ -334,29 +334,38 @@ class StyleControl {
     const error_element_attrs = {
       "error-msg": `${work.error}: {au:"${work.get_authors()}", date:"${work.get_date()}"}`, 
     };
-    if (work.error == "DATE_ERROR") {
+    // error display
+    let author_error = true;
+    let date_error = true;
+    if (work.error === "DATE_ERROR") {
 
       error_element_attrs["class"] = "in-text-error in-text-error-date";
-      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+      author_error = false;
 
-    } else if (work.error == "CANNOT_CHECK_THIS_YET") {
+    } else if (work.error === "WRONG_WORK_ORDER") {
+
+      error_element_attrs["class"] = "in-text-error";
+      error_element_attrs["error-msg"] = "WRONG_WORK_ORDER";
+
+    } else if (work.error === "CANNOT_CHECK_THIS_YET") {
 
       error_element_attrs["class"] = "in-text-maybe-error in-text-error";
       error_element_attrs["error-msg"] = "CANNOT_CHECK_THIS_YET";
-      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
-      this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
 
-    } else if (work.error == "MONTH_IN_IN_TEXT_CITATION") {
+    } else if (work.error === "MONTH_IN_IN_TEXT_CITATION") {
 
       error_element_attrs["class"] = "in-text-error should-delete";
-      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+      author_error = false;
 
     } else {
-
       error_element_attrs["class"] = "in-text-error";
-      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
-      this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
+    }
 
+    if (author_error) {
+      this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
+    }
+    if (date_error) {
+      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
     }
   }
 
@@ -485,7 +494,6 @@ class ReferenceList {
       if (!date) {
         this.set_error(index, `cannot extract date from "${match[2]}"`);
       }
-      console.log(authors);
       authors = authors.map(
         author => (author.replace("&", "").trim())
       ).filter(is_author_name);
@@ -522,6 +530,7 @@ function check() {
   document.getElementById("button-section").style.display = "none";
 
   // check each work in intext citation
+  let last_work = null;
   for (let work of essay.intext_citations) {
     // check if work is in reference list
     work.check();
@@ -532,6 +541,15 @@ function check() {
       } else if (!reference_list_contains(reference_list.dworks[date], work)) { // check if contain authors
         work.set_error("NOT_IN_REF_LIST");
       }
+      if (last_work && 
+        last_work.p_index === work.p_index && 
+        work.get_authors()[0][0] < last_work.get_authors()[0][0] &&
+        !/^see/.test(work.author.trim())
+      ) {
+        console.log(work, last_work);
+        console.log(work.get_authors()[0][0], last_work.get_authors()[0][0]);
+        work.set_error("WRONG_WORK_ORDER");
+      }
     }
     // // print error message
     // if (work.error) {
@@ -540,6 +558,8 @@ function check() {
     //     `{au:"${work.get_authors()}", date:"${work.get_date()}"}`);
     // }
     essay.text_style_control.add_work(work);
+
+    last_work = work;
   }
   essay.text_style_control.flush();
 
