@@ -16,7 +16,7 @@ Work with no date test (No Date Test, n.d.).
 
 # Narrative Citation Test:
 
-essay essay Huguet and Régner (2007) essay essay ... essay essay Gneezy et al. (2009) essay essay ... essay essay WrongAuthor et al. (2013) essay essay Alan et al. (2019) essay essay WrongAuthor (2008) essay (WrongAuthor1 & WrongAuthor1, 2022)
+essay essay Huguet and Régner (2007) essay essay ... essay essay Gneezy et al. (2009) essay essay ... essay essay WrongAuthor et al. (2013) essay essay Alan et al. (2019) essay essay WrongAuthor (2008) essay (WrongAuthor1 & WrongAuthor2, 2022)
 
 # Apostrophe Test: 
 

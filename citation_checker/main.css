@@ -111,6 +111,10 @@ button {
   color: #009933;
 }
 
+.should-delete {
+  text-decoration: line-through;
+}
+
 p {
   margin: 0;
   padding: 0;

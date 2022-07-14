@@ -1,13 +1,15 @@
 
-function is_initials(str) {
-  // return boolean
-  // initials: e.g. "A. P."
+function is_author_name(str) {
+  if (str === "Jr." || str === "Sr.") {
+    return false;
+  }
+  // check if is initials
   for (let c of str.replaceAll(".", "").split(" ")) {
     if (c.length > 1) {
-      return false;
+      return true;
     }
   }
-  return true;
+  return false;
 }
 
 
@@ -48,6 +50,10 @@ function get_year_from_date(str) {
   }
   return false;
 }
+
+// function get_author(str) {
+//   // remove "Jr." "S"
+// }
 
 
 class IntextWork {
@@ -342,7 +348,7 @@ class StyleControl {
 
     } else if (work.error == "MONTH_IN_IN_TEXT_CITATION") {
 
-      error_element_attrs["class"] = "in-text-error";
+      error_element_attrs["class"] = "in-text-error should-delete";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
 
     } else {
@@ -473,16 +479,16 @@ class ReferenceList {
         continue;
       }
       let authors = match[1].split(",");
+
+      // extract date
       const date = get_year_from_date(match[2]);
       if (!date) {
         this.set_error(index, `cannot extract date from "${match[2]}"`);
       }
-
+      console.log(authors);
       authors = authors.map(
         author => (author.replace("&", "").trim())
-      ).filter(
-        author => !(is_initials(author))
-      );
+      ).filter(is_author_name);
 
       if (!(date in this.dworks)) {
         this.dworks[date] = [];
