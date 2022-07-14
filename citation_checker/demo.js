@@ -4,6 +4,7 @@ document.getElementById("essay").innerText = `
 
 This (2001) is (1997) a demo: demo demo demo(1998). This is a test (test, 1973, 2001, 2000, n.d.; see also: test1, 2007, 2010; test2, 1999).
 
+
 # Parenthetical Citation Test:
 
 Essay essay essay essay (Stoet & Geary, 2018). Citing multiple works: (Maharani et al., 2020; Newman et al., 2008), citing more works (Dweck, 2008, 2012; Froehlich et al., 2016; Hong et al., 1999).
@@ -14,17 +15,21 @@ Wrong date test, should be "2007a", (Hay, a2007). Wrong date test2, should be 20
 
 Work with no date test (No Date Test, n.d.).
 
+
 # Narrative Citation Test:
 
 essay essay Huguet and Régner (2007) essay essay ... essay essay Gneezy et al. (2009) essay essay ... essay essay WrongAuthor et al. (2013) essay essay Alan et al. (2019) essay essay WrongAuthor (2008) essay (WrongAuthor1 & WrongAuthor2, 2022)
+
 
 # Apostrophe Test: 
 
 in Klein and Hodges’ (2001) test test Boaler’s (2013) test
 
+
 # Work Order Test:
 
-test test (Maharani et al., 2020; Newman et al., 2008), test test (Dweck, 2008, 2012; Hong et al., 1999; Froehlich et al., 2016) test test (Laurell et al., 2021; see also Froehlich et al., 2016) test test (Hong et al., 1999; Dweck, 2008, 2012; Froehlich et al., 2016) test test
+test test (Maharani et al., 2020; Newman et al., 2008), test (Dweck, 2008, 2012, 2007) test (Dweck, 2008, 2012; Hong et al., 1999; Froehlich et al., 2016) test test (Laurell et al., 2021; see also Froehlich et al., 2016) test test (Hong et al., 1999; Dweck, 2008, 2012; Froehlich et al., 2016) test test
+
 
 # Dates with months:
 

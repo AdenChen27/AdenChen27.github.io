@@ -20,7 +20,7 @@ function is_date(str) {
   // return "M" when `str` matched for month
   str = str.trim();
   if (/n\. ?d\./.test(str)) {
-    return "ND";
+    return "n.d.";
   }
   if (/\d{4}[a-z]?$/.test(str)) {
     return "Y";
@@ -40,20 +40,17 @@ function is_date(str) {
 
 
 function get_year_from_date(str) {
-  // return "n.d." if "n.d."
+  // return 0 if "n.d."
+  // return -1 if failed
   str = str.trim();
   if (/n\. ?d\./.test(str)) {
-    return "n.d.";
+    return 0;
   }
   if (/^\d{4}/.test(str)) {
-    return str.substring(0, 4);
+    return str.substring(0, 4).toString();
   }
-  return false;
+  return -1;
 }
-
-// function get_author(str) {
-//   // remove "Jr." "S"
-// }
 
 
 class IntextWork {
@@ -76,12 +73,11 @@ class IntextWork {
   }
 
   get_date() {
-    // return date
-    let date = this.date.trim();
-    if (/[0-2]\d{3}[a-z]/.test(date)) {
-      date = date.substring(0, 4);
-    }
-    return date;
+    // let date = this.date.trim();
+    // if (/[0-2]\d{3}[a-z]/.test(date)) {
+    //   date = date.substring(0, 4);
+    // }
+    return get_year_from_date(this.date);
   }
 
   get_authors() {
@@ -212,15 +208,24 @@ class IntextWork {
 
       cur_index += author.length + 1;
 
+      let last_date = 0;
       for (let date of elements.slice(1)) {
         const date_type = is_date(date);
         if (!date_type){
+          // don't even recognize
           works.push(new IntextWork(author, date, author_index, cur_index, "CANNOT_CHECK_THIS_YET", index));
         } else if (date_type === "M") {
           // is month (shouldn't be month in in text citation)
           works.push(new IntextWork(author, date, author_index, cur_index, "MONTH_IN_IN_TEXT_CITATION", index));
         } else {
-          works.push(new IntextWork(author, date, author_index, cur_index, false, index));
+          if (get_year_from_date(date) != -1 && last_date > get_year_from_date(date)) {
+            // date order error
+            works.push(new IntextWork(author, date, author_index, cur_index, "WRONG_DATE_ORDER", index));
+          } else {
+            // ok
+            works.push(new IntextWork(author, date, author_index, cur_index, false, index));
+          }
+          last_date = get_year_from_date(date);
         }
         cur_index += date.length + 1;
       }
@@ -474,6 +479,7 @@ class ReferenceList {
     const reference_list_lines = this.div.innerText
       .split(/\r?\n/)
       .filter(line => line.trim() !== "");
+    const error_list = [];
 
     const re = /^(.+?)\s\((.+?)\)/;
     this.dworks = {};
@@ -491,8 +497,8 @@ class ReferenceList {
 
       // extract date
       const date = get_year_from_date(match[2]);
-      if (!date) {
-        this.set_error(index, `cannot extract date from "${match[2]}"`);
+      if (date == -1) {
+        error_list.push([index, `cannot extract date from "${match[2]}"`]);
       }
       authors = authors.map(
         author => (author.replace("&", "").trim())
@@ -505,6 +511,9 @@ class ReferenceList {
     }
 
     this.div.innerHTML = reference_list_lines.join("\n");
+    for (const error_args of error_list) {
+      this.set_error(...error_args);
+    }
   }
 }
 
@@ -537,6 +546,7 @@ function check() {
     const date = work.get_date();
     if (!work.error) {
       if (!(date in reference_list.dworks)) {
+        // console.log(work, date);
         work.set_error("DATE_NOT_IN_REF_LIST");
       } else if (!reference_list_contains(reference_list.dworks[date], work)) { // check if contain authors
         work.set_error("NOT_IN_REF_LIST");
@@ -546,8 +556,6 @@ function check() {
         work.get_authors()[0][0] < last_work.get_authors()[0][0] &&
         !/^see/.test(work.author.trim())
       ) {
-        console.log(work, last_work);
-        console.log(work.get_authors()[0][0], last_work.get_authors()[0][0]);
         work.set_error("WRONG_WORK_ORDER");
       }
     }
@@ -584,7 +592,6 @@ document.getElementById("essay").addEventListener("paste", (event) => {
     event.preventDefault();
 
     let paste = (event.clipboardData || window.clipboardData).getData('text');
-    console.log(paste);
     document.getElementById("essay").innerHTML = paste;
 });
 
@@ -593,6 +600,5 @@ document.getElementById("references").addEventListener("paste", (event) => {
     event.preventDefault();
 
     let paste = (event.clipboardData || window.clipboardData).getData('text');
-    console.log(paste);
     document.getElementById("references").innerHTML = paste;
 });
