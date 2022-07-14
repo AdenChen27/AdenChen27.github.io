@@ -1,4 +1,55 @@
 
+function is_initials(str) {
+  // return boolean
+  // initials: e.g. "A. P."
+  for (let c of str.replaceAll(".", "").split(" ")) {
+    if (c.length > 1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+function is_date(str) {
+  // return false if nothing matched
+  // return "ND" for "n. d."
+  // return "Y" when `str` matched for year
+  // return "M" when `str` matched for month
+  str = str.trim();
+  if (/n\. ?d\./.test(str)) {
+    return "ND";
+  }
+  if (/\d{4}[a-z]?$/.test(str)) {
+    return "Y";
+  }
+  const months = [
+    "January", "February", "March", "April", 
+    "May", "June", "July", "August", 
+    "September", "October", "November", "December"
+  ];
+  for (const month of months) {
+    if (str.startsWith(month)) {
+      return "M";
+    }
+  }
+  return false;
+}
+
+
+function get_year_from_date(str) {
+  // return "ND" if "n.d."
+  str = str.trim();
+  if (/n\. ?d\./.test(str)) {
+    return "ND";
+  }
+  if (/^\d{4}/.test(str)) {
+    return str.substring(0, 4);
+  }
+  return false;
+}
+
+
 class IntextWork {
   constructor(author, date, author_i, date_i, error=false, p_index=false) {
     // author & date in String
@@ -77,11 +128,6 @@ class IntextWork {
     return /, +?.*?\d{4}/.test(str) || str.includes(", n.d.");
   }
 
-  static is_date(str) {
-    str = str.trim();
-    return str.endsWith("n.d.") || /\d{4}$/.test(str);
-  }
-
   static get_narrative_citation(str, index, essay_text) {
     // return `IntextWork` if found author
     // return `IntextWork` with `author`="" when can't find author & `str` is date
@@ -89,7 +135,7 @@ class IntextWork {
     // str: String of whatever is in the parentheses
     // index: start index of str in essay
     // essay_text: essay in str
-    if (!this.is_date(str)) {
+    if (!is_date(str)) {
       return false;
     }
     essay_text = essay_text.substring(0, index - 1);
@@ -145,7 +191,7 @@ class IntextWork {
     }
   }
 
-  static get_works_from_citation(str, index) {
+  static get_parentical_citation(str, index) {
     // return an Array of IntextWork
     // str: String of a Parenthetical Citation (without the partentheses)
     // index: start index of str in essay
@@ -161,10 +207,14 @@ class IntextWork {
       cur_index += author.length + 1;
 
       for (let date of elements.slice(1)) {
-        if (this.is_date(date)) {
-          works.push(new IntextWork(author, date, author_index, cur_index, false, index));
-        } else {
+        const date_type = is_date(date);
+        if (!date_type){
           works.push(new IntextWork(author, date, author_index, cur_index, "CANNOT_CHECK_THIS_YET", index));
+        } else if (date_type === "M") {
+          // is month (shouldn't be month in in text citation)
+          works.push(new IntextWork(author, date, author_index, cur_index, "MONTH_IN_IN_TEXT_CITATION", index));
+        } else {
+          works.push(new IntextWork(author, date, author_index, cur_index, false, index));
         }
         cur_index += date.length + 1;
       }
@@ -279,17 +329,28 @@ class StyleControl {
       "error-msg": `${work.error}: {au:"${work.get_authors()}", date:"${work.get_date()}"}`, 
     };
     if (work.error == "DATE_ERROR") {
+
       error_element_attrs["class"] = "in-text-error in-text-error-date";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+
     } else if (work.error == "CANNOT_CHECK_THIS_YET") {
-      error_element_attrs["class"] = "in-text-maybe-error";
+
+      error_element_attrs["class"] = "in-text-maybe-error in-text-error";
       error_element_attrs["error-msg"] = "CANNOT_CHECK_THIS_YET";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
       this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
+
+    } else if (work.error == "MONTH_IN_IN_TEXT_CITATION") {
+
+      error_element_attrs["class"] = "in-text-error";
+      this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
+
     } else {
+
       error_element_attrs["class"] = "in-text-error";
       this.add(work.date_i, work.date_i + work.date.length, error_element_attrs);
       this.add(work.author_i, work.author_i + work.author.length, error_element_attrs);
+
     }
   }
 
@@ -348,7 +409,7 @@ class Essay {
       
       // parenthetical citations
       if (IntextWork.is_parenthetical_citation(match[0])) {
-        this.intext_citations.push(...IntextWork.get_works_from_citation(match[0], match.index));
+        this.intext_citations.push(...IntextWork.get_parentical_citation(match[0], match.index));
         continue;
       }
       
@@ -381,6 +442,13 @@ class ReferenceList {
     this.get_reference_list_dict();
   }
 
+  set_error(line_i, error_msg) {
+    const line = document.getElementById(`reference_line_${line_i}`);
+    line.classList.add("unused-reference");
+    line.classList.add("error-msg-on-hover");
+    line.setAttribute("error-msg", error_msg);
+  }
+
   get_reference_list_dict(str) {
     // 1. reformat `this.div`
     //    A) remove empty lines in `references` div
@@ -405,7 +473,10 @@ class ReferenceList {
         continue;
       }
       let authors = match[1].split(",");
-      const date = match[2];
+      const date = get_year_from_date(match[2]);
+      if (!date) {
+        this.set_error(index, `cannot extract date from "${match[2]}"`);
+      }
 
       authors = authors.map(
         author => (author.replace("&", "").trim())
@@ -421,13 +492,6 @@ class ReferenceList {
 
     this.div.innerHTML = reference_list_lines.join("\n");
   }
-
-  set_error(line_i, error_msg) {
-    const line = document.getElementById(`reference_line_${line_i}`);
-    line.classList.add("unused-reference");
-    line.classList.add("error-msg-on-hover");
-    line.setAttribute("error-msg", error_msg);
-  }
 }
 
 
@@ -441,28 +505,6 @@ function reference_list_contains(reference_list, work) {
     }
   }
   return false;
-}
-
-
-function is_initials(str) {
-  // return boolean
-  // initials: e.g. "A. P."
-  for (let c of str.replaceAll(".", "").split(" ")) {
-    if (c.length > 1) {
-      return false;
-    }
-  }
-  return true;
-}
-
-
-
-function tprint(...args) {
-  // var temp = document.getElementById("temp");
-  // for (var i in args) {
-  //   temp.innerText += args[i] + " ";
-  // }
-  // temp.innerText += "\n";
 }
 
 
@@ -485,12 +527,12 @@ function check() {
         work.set_error("NOT_IN_REF_LIST");
       }
     }
-    // print error message
-    if (work.error) {
-      tprint(`(${work.author_i}, ${work.date_i}): \t` + 
-        `[${work.error}] for in-text citation:` + 
-        `{au:"${work.get_authors()}", date:"${work.get_date()}"}`);
-    }
+    // // print error message
+    // if (work.error) {
+    //   console.log(`(${work.author_i}, ${work.date_i}): \t` + 
+    //     `[${work.error}] for in-text citation:` + 
+    //     `{au:"${work.get_authors()}", date:"${work.get_date()}"}`);
+    // }
     essay.text_style_control.add_work(work);
   }
   essay.text_style_control.flush();
@@ -510,6 +552,8 @@ function check() {
 
 }
 
+
+// disable copy style
 document.getElementById("essay").addEventListener("paste", (event) => {
     event.preventDefault();
 

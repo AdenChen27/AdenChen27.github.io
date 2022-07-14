@@ -75,12 +75,10 @@ button {
 
 .in-text-error {
   color: rgb(200, 0, 0);
-  /*font-weight: bold;*/
 }
 
 /* hover error msg */
 .error-msg-on-hover:after,
-.in-text-maybe-error:after, 
 .in-text-error:after {
   content: attr(error-msg);
   display: none;
@@ -97,7 +95,6 @@ button {
 }
 
 .error-msg-on-hover:hover:after, 
-.in-text-maybe-error:hover:after, 
 .in-text-error:hover:after {
   display: block;
 }

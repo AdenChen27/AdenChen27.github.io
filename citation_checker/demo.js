@@ -26,6 +26,10 @@ in Klein and Hodges’ (2001) test test Boaler’s (2013) test
 
 test test (Maharani et al., 2020; Newman et al., 2008), test test (Dweck, 2008, 2012; Hong et al., 1999; Froehlich et al., 2016) test
 
+# Dates with months:
+
+test test (Bbb, 2000, December) test test, (Ritchie & Roser, 2019)
+
 
 test test (Fors Connolly et al., 2019; Schwartz & Rubel, 2005) blah blah (Costa et al., 2001; McCrae & Terracciano, 2005; Schmitt et al., 2008; Weisberg et al., 2011).
 
@@ -34,7 +38,7 @@ There is (dgyuewgyugwue, sahufaui) essay (Butler, 1978) test.
 
 essay Dekhtyar et al. (2018) essay (Prot et al., 2014) essay (Todor, 2014) essay (Dweck, 2007)
 
-essay (Alexander & Wilcox, 2012; Fausto-Sterling et al., 2012) blah (Endendijk et al., 2016) blah Simpson et al. (2016) blah (Bouchard, Jr. & Loehlin, 2001).
+essay (Alexander & Wilcox, 2012; Fausto-Sterling et al., 2012) blah (Endendijk et al., 2016) blah Simpson et al. (2016) blah (Bouchard & Loehlin, 2001) blah blah (Bouchard, Jr. & Loehlin, 2001)
 
 blah (Costa et al., 2001) blah (Falk & Hermle, 2018) blah (Fors Connolly et al., 2019; Schwartz & Rubel, 2005) blah (Schmitt et al., 2016) blah (Stoet & Geary, 2018) blah (Peñuelas et al., 2017) blah (Falk & Hermle, 2018) blah (Newman et al., 2008) blah 
 
@@ -49,9 +53,11 @@ AAA Organization Test (2022) blah blah blah
 Alan, S., Ertac, S., Kubilay, E., & Loranth, G. (2019). Understanding Gender Differences in Leadership. The Economic Journal. https://doi.org/10.1093/ej/uez050
 Alexander, G. M., & Wilcox, T. (2012). Sex Differences in Early Infancy. Child Development Perspectives, n/a. https://doi.org/10.1111/j.1750-8606.2012.00247.x
 Babchuk, W. A., Hames, R. B., & Thompson, R. A. (1985). Sex differences in the recognition of infant facial expressions of emotion: The primary caretaker hypothesis. Ethology and Sociobiology, 6(2), 89–101. https://doi.org/10.1016/0162-3095(85)90002-0
+Bbb, T. (2000, December). blah blahblah
 Berenbaum, S. A., & Beltz, A. M. (2011). Sexual differentiation of human behavior: Effects of prenatal and pubertal organizational hormones. Frontiers in Neuroendocrinology, 32(2), 183–200. https://doi.org/10.1016/j.yfrne.2011.03.001
 Boaler, J. (2013). Ability and Mathematics: the mindset revolution that is reshaping education. FORUM, 55(1), 143. https://doi.org/10.2304/forum.2013.55.1.143
 Booth, A., Granger, D. A., Mazur, A., & Kivlighan, K. T. (2006). Testosterone and Social Behavior. Social Forces, 85(1), 167–191. https://doi.org/10.1353/sof.2006.0116
+Bouchard, Jr., T. J., & Loehlin, J. C. (2001). Genes, Evolution, and Personality. Behavior Genetics, 31(3), 243–273. https://doi.org/10.1023/a:1012294324713
 Costa, P. T., Terracciano, A., & McCrae, R. R. (2001). Gender differences in personality traits across cultures: Robust and surprising findings. Journal of Personality and Social Psychology, 81(2), 322–331. https://doi.org/10.1037/0022-3514.81.2.322
 Dekhtyar, S., Weber, D., Helgertz, J., & Herlitz, A. (2018). Sex differences in academic strengths contribute to gender segregation in education and occupation: A longitudinal examination of 167,776 individuals. Intelligence, 67, 84–92. https://doi.org/10.1016/j.intell.2017.11.007
 del Giudice, M., Booth, T., & Irwing, P. (2012). The Distance Between Mars and Venus: Measuring Global Sex Differences in Personality. PLoS ONE, 7(1), e29265. https://doi.org/10.1371/journal.pone.0029265
@@ -79,6 +85,7 @@ McCrae, R. R., & Terracciano, A. (2005). Universal Features of Personality Trait
 Newman, M. L., Groom, C. J., Handelman, L. D., & Pennebaker, J. W. (2008). Gender Differences in Language Use: An Analysis of 14,000 Text Samples. Discourse Processes, 45(3), 211–236. https://doi.org/10.1080/01638530802073712
 Peñuelas, J., Janssens, I. A., Ciais, P., Obersteiner, M., Krisztin, T., Piao, S., & Sardans, J. (2017). Increasing gap in human height between rich and poor countries associated to their different intakes of N and P. Scientific Reports, 7(1). https://doi.org/10.1038/s41598-017-17880-3
 Prot, F., Balent, B., & Bosnar, K. (2014). Gender Differences in Sport Mindset. In D. Milanović & G. Sporiš (Eds.), 7th International Scientific Conference on Kinesiology: Fundamental and Applied Kinesiology - Steps Forward : Proceedings (pp. 537–539). Amsterdam University Press.
+Ritchie, H., & Roser, M. (2019, June 13). Gender Ratio. Our World in Data. Retrieved June 27, 2022, from https://ourworldindata.org/gender-ratio#sex-ratio-through-adulthood
 Schmitt, D. P., Long, A. E., McPhearson, A., O’Brien, K., Remmert, B., & Shah, S. H. (2016). Personality and gender differences in global perspective. International Journal of Psychology, 52, 45–56. https://doi.org/10.1002/ijop.12265
 Schmitt, D. P., Realo, A., Voracek, M., & Allik, J. (2008). Why can’t a man be more like a woman? Sex differences in Big Five personality traits across 55 cultures. Journal of Personality and Social Psychology, 94(1), 168–182. https://doi.org/10.1037/0022-3514.94.1.168
 Schwartz, S. H., & Rubel, T. (2005). Sex differences in value priorities: Cross-cultural and multimethod studies. Journal of Personality and Social Psychology, 89(6), 1010–1028. https://doi.org/10.1037/0022-3514.89.6.1010
