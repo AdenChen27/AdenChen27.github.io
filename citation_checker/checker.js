@@ -466,6 +466,9 @@ class ReferenceList {
     const line = document.getElementById(`reference_line_${line_i}`);
     line.classList.add("unused-reference");
     line.classList.add("error-msg-on-hover");
+    if (error_msg.startsWith("unused reference:")) {
+      line.classList.add("should-delete");
+    }
     line.setAttribute("error-msg", error_msg);
   }
 

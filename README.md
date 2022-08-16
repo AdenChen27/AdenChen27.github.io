@@ -17,7 +17,7 @@ A collection of my little web projects
 - [demo 0](https://adenchen27.github.io/demo_0.html)
 
 
-**A simple online citation checker (...in development)**
+**A simple online citation checker**
 
 - check it out [here](https://adenchen27.github.io/citation_checker/main.html)
 - checks your apa7 essay in no time
