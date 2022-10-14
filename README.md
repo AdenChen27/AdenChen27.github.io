@@ -3,22 +3,20 @@
 - [Check it out](https://adenchen27.github.io/func_image/func_image.html)
 - It's basic, but hey, it's really fast and extremely lightweight!
 - Generates QR code for this page with your plotted function images
-    - `qrcode.js` from [davidshimjs](https://github.com/davidshimjs/qrcodejs)
+  - `qrcode.js` from [davidshimjs](https://github.com/davidshimjs/qrcodejs)
 - Get png files in a click so you won't have to take screenshots
-- ![](demo/func_image.png)
-
+- <img src="demo/func_image.png" title="" alt="" width="502">
 
 ### [download metadata from doi and plot citation graph](https://github.com/AdenChen27/reference_map)
 
 - It's useless but kinda cool
 - [demo 0](https://adenchen27.github.io/demo_0.html)
-- ![](demo/reference_map.png)
-
+- <img src="demo/reference_map.png" title="" alt="" width="504">
 
 ### [Online APA7 In-Text Citation Checker](https://github.com/AdenChen27/AdenChen27.github.io/tree/main/citation_checker)
 
 - [Check it out](https://adenchen27.github.io/citation_checker/main.html)
-- ![](demo/apa_in-text_checker.png)
+- <img src="demo/apa_in-text_checker.png" title="" alt="" width="504">
 
 ### [2048 solver](https://github.com/AdenChen27/2048_solver)
 
@@ -28,24 +26,20 @@
 
 - [Check it out](https://adenchen27.pythonanywhere.com/index/)
 - Learn new words & practice recognizing them in context with auto genereated quizzes. 
-- ![](demo/project_0_0.png)
-- ![](demo/project_0_1.png)
+- <img src="demo/project_0_0.png" title="" alt="" width="382">
+- <img title="" src="demo/project_0_1.png" alt="" width="384">
 
 ### [CTB Website](https://github.com/CHVSG/CHVSG.github.io)
 
 - [Check it out](https://chvsg.github.io/)
 - For CTB project on motivating Chinese high school girls to do more sports.
-- ![](demo/CHVSG_main.gif)
-- ![](demo/CHVSG_stereotype_board.png)
+- <img src="demo/CHVSG_main.gif" title="" alt="" width="386">
+- <img src="demo/CHVSG_stereotype_board.png" title="" alt="" width="389">
 
 ### FaceTimelapse
 
 - Align faces. 
-- ![](demo/FaceTimelapse.gif)
+- <img src="demo/FaceTimelapse.gif" title="" alt="" width="382">
 - Looks kinda cool. No use.
 
 so_old_as_to_ignore: [VB](https://github.com/AdenChen27/VB_stuff), [timetable](https://github.com/AdenChen27/timetablebuilder)
-
-
-
-
