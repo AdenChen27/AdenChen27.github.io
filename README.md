@@ -13,6 +13,12 @@
 - [demo 0](https://adenchen27.github.io/demo_0.html)
 - <img src="demo/reference_map.png" title="" alt="" width="504">
 
+### [My Money On My Mind](https://github.com/AdenChen27/MyMoneyOnMyMind)
+
+- Animations abuot economics/behavioral economics theories for My Money On My Mind, a Wechat Official Account blog aimed at middle school students.
+
+- <img src="demo/MMOMM.png" title="" alt="" width="505">
+
 ### [Online APA7 In-Text Citation Checker](https://github.com/AdenChen27/AdenChen27.github.io/tree/main/citation_checker)
 
 - [Check it out](https://adenchen27.github.io/citation_checker/main.html)
