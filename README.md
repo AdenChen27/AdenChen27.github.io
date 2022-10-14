@@ -7,7 +7,7 @@
 - Get png files in a click so you won't have to take screenshots
 - <img src="demo/func_image.png" title="" alt="" width="502">
 
-### [download metadata from doi and plot citation graph](https://github.com/AdenChen27/reference_map)
+### [Download Metadata from Doi and Plot Citation Network Thingy](https://github.com/AdenChen27/reference_map)
 
 - It's useless but kinda cool
 - [demo 0](https://adenchen27.github.io/demo_0.html)
