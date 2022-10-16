@@ -40,7 +40,7 @@
 - [Check it out](https://chvsg.github.io/)
 - For CTB project on motivating Chinese high school girls to do more sports.
 - <img src="demo/CHVSG_main.gif" title="" alt="" width="386">
-- Share the stereotypes you've heard regarding girls doing sports on our [online sticky notes board](https://chvsg.github.io/2999/01/01/stereotypes-board/) (might take some time to load outside of China...)
+- Share the stereotypes you've heard regarding girls doing sports on our [online sticky notes board](https://chvsg.github.io/2999/01/01/stereotypes-board/)
 - <img src="demo/CHVSG_stereotype_board.png" title="" alt="" width="389">
 
 ### FaceTimelapse
