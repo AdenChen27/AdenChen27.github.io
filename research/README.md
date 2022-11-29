@@ -1,17 +1,36 @@
 
+# Research Papers
 
 
-[Gender Differences in Psychology](https://github.com/AdenChen27/AdenChen27.github.io/blob/main/research/Gender-Differences-in-Psychology.pdf)
 
-[Short-Circuits in the Mind: How They Work in the Spreading of Cults and Fake News](https://github.com/AdenChen27/AdenChen27.github.io/blob/main/research/Short-Circuits-in-the-Mind.pdf)
+### Gender Differences in Psychology
 
-[Gender-Differences-in-Psychology](https://github.com/AdenChen27/AdenChen27.github.io/blob/main/research/Gender-Differences-in-Psychology.pdf)
+- Gender differences, the gender-equality paradox, biological and societal causes, supporting evidence, and evolutionary psychology theories.
 
-[test1](Gender-Differences-in-Psychology.pdf)
+- [\[pdf\]](Gender-Differences-in-Psychology.pdf)
 
-[test2](../Gender-Differences-in-Psychology.pdf)
 
-[test3](../)
+### How Perceptions of Intelligence Influence Education
 
-[test3]()
+- The interplay between students' implicit theory of intelligence and stereotype threat; current classroom interventions that promote a fixed mindset; and interventions.
+
+- [\[pdf\]](How-Perceptions-of-Intelligence-Influence-Education.pdf)
+
+
+### Short-Circuits in the Mind: How They Work in the Spreading of Cults and Fake News 
+
+- Dual process model, common sense, fake news & cults, and possible interventions.
+
+- [\[pdf\]](Short-Circuits-in-the-Mind.pdf)
+
+
+### Sports Participation among High School Girls \[Chinese\]
+
+- China Thinks Big Competition
+
+- Social reasons impeding Chinese high school girls from participating in sports and ways to tackle them.
+
+- [\[pdf\]](Sports-participation-among-high-school-girls.pdf)
+
+- [\[Read it on our project website\]](https://chvsg.github.io/2022/01/10/research-report/)
 
