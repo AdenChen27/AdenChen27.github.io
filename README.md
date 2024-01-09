@@ -48,5 +48,3 @@
 - Align faces. 
 - <img src="demo/FaceTimelapse.gif" title="" alt="" width="382">
 - Looks kinda cool. No use.
-
-so_old_as_to_ignore: [VB](https://github.com/AdenChen27/VB_stuff), [timetable](https://github.com/AdenChen27/timetablebuilder)
