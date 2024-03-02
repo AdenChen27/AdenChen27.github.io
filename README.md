@@ -86,3 +86,7 @@ Align faces to produce goofy animations.
 
 <img src="demo/FaceTimelapse.gif" title="" alt="" width="382">
 
+
+https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/377beea2-57a3-40c2-b16a-4cb9d6ebd841
+
+
