@@ -73,8 +73,9 @@ A [webpage](https://adenchen27.github.io/func_image/func_image.html) that plots 
 
 
 
-
 ## [2048 solver](https://github.com/AdenChen27/2048_solver)
+
+Implemented using Minimax algorithm and Alpha-Beta pruning.
 
 ![](demo/2048_solver.gif)
 
@@ -86,7 +87,13 @@ Align faces to produce goofy animations.
 
 <img src="demo/FaceTimelapse.gif" title="" alt="" width="382">
 
+Here's Michael Stevens, creator of [Vsauce](https://www.youtube.com/vsauce), my favorite educational channel on YouTube:
 
-https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/377beea2-57a3-40c2-b16a-4cb9d6ebd841
+https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/07696c62-9ef5-4181-a4f4-27ede6e74234
+
+
+And here's Stevie Nicks:
+
+https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/ddbabc4d-db99-4370-b9c0-90f9787455fd
 
 
