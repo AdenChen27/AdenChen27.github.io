@@ -14,7 +14,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body" style="font-size: 0.8em;">
-                        <h6 class="text-center">Level: <span id="current-level"></span> / 5</h6>
+                        <h6 class="text-center">Level: <span id="current-level"></span> / 10</h6>
                         <button class="btn btn-primary btn-sm mb-2" onclick="display_hint()">Display Hint</button>
                         <div><span id="hint-message"></span></div>
                         <p class="mb-0">Number of Hints Used: <span id="num-hints-used"></span></p>
@@ -34,7 +34,7 @@
                             <span id="question-equals" class="entry">=</span>
                             <input id="question-answer" class="form-control"></input>
                         </div>
-                        <button class="btn btn-primary btn-block" onclick="check_answer()">Submit</button>
+                        <button class="btn btn-primary btn-block" onclick="check_answer()" id="check-answer-button">Submit</button>
                         <div id="right-answer-message" class="answer-message mt-2" hidden>Correct!</div>
                         <div id="wrong-answer-message" class="answer-message mt-2" hidden>Incorrect!</div>
                     </div>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary btn-block" onclick="add_new_clue_from_input();">Submit</button>
+                                <button class="btn btn-primary btn-block" onclick="add_new_clue_from_input();" id="submit-input">Submit</button>
                                 <span id="input-error-message" style="display: none;">Read the Rules lmao</span>
                             </div>
                         </div>

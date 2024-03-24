@@ -24,7 +24,53 @@ function num_of_1_in_binary(x) {
     return x.toString(2).split('1').length - 1;
 }
 
+function gcd(a, b) {
+    if (b > a) {
+        return gcd(b, a);
+    }
+    if (b) {
+        return gcd(b, a % b);
+    } else {
+        return Math.abs(a);
+    }
+}
 
+var num_in_english = {
+    10000000: "Crore",
+    100000: "Lakh",
+    1000: "Thousand",
+    100: "Hundred",
+    90: "Ninety",
+    80: "Eighty",
+    70: "Seventy",
+    60: "Sixty",
+    50: "Fifty",
+    40: "Forty",
+    30: "Thirty",
+    20: "Twenty",
+    19: "Nineteen",
+    18: "Eighteen",
+    17: "Seventeen",
+    16: "Sixteen",
+    15: "Fifteen",
+    14: "Fourteen",
+    13: "Thirteen",
+    12: "Twelve",
+    11: "Eleven",
+    10: "Ten",
+    9: "Nine",
+    8: "Eight",
+    7: "Seven",
+    6: "Six",
+    5: "Five",
+    4: "Four",
+    3: "Three",
+    2: "Two",
+    1: "One"
+};
+
+
+/*
 const all_operators = [
     (function (x, y) {
         return 2 * x - y;
@@ -41,13 +87,11 @@ const all_operators = [
     (function (x, y) {
         return num_of_circles(x) + num_of_circles(y);
     }), 
-    /*
     (function (x, y) {
         return num_of_1_in_binary(x^y);
     }),
-    */
 ];
-/*
+
 const hints = [
     "Probably I should multiply 2 to the first number and see what's going on 🤔",
     "Probably I should check the digits of each number 🤔",
@@ -59,10 +103,31 @@ const hints = [
 */
 const questions = [
     {
-        func: (function (x, y) {return 2 * x - y;}), 
+        func: (function (x, y) {return x + y;}), 
+        hints: [
+            "Hint: Why do you need a clue for this???",
+            "Hint: Come on man, seriously? Reeducate yourself PLS."
+        ]
+    }, 
+    {
+        func: (function (x, y) {return (x + 1)*y;}), 
+        hints: [
+            "Hint: You can always try an operation of y to x, rather than of x to y.",
+            "Hint: When in doubt, DIVIDE up the question."
+        ]
+    }, 
+    {
+        func: (function (x, y) {return 2*x - y;}), 
         hints: [
             "Hint: Linear combination",
             "Hint: Multiply 2 to the first number"
+        ]
+    }, 
+    {
+        func: (function (x, y) {return (x + y) % 5;}), 
+        hints: [
+            "Hint: Add them together!",
+            "Hint: Think about modulo operations?"
         ]
     }, 
     {
@@ -72,6 +137,13 @@ const questions = [
             "Hint: How long are the numbers? The longer the better."
         ]
     },
+    {
+        func: (function (x, y) {return gcd(x, y);}), 
+        hints: [
+            "Hint: factor them!",
+            "Hint: why do you need another clue??"
+        ]
+    }, 
     {
         func: (function (x, y) {return 2 * x * x + 3;}), 
         hints: [
@@ -92,7 +164,21 @@ const questions = [
             "Hint: Shapes", 
             "Hint: Circles lol"
         ]
-    }
+    }, 
+    {
+        func: (function (x, y) {return x ^ y;}), 
+        hints: [
+            "Hint: ORRR you should become a CS major.", 
+            "Hint: not or! X or!"
+        ]
+    }, 
+    // {
+    //     func: (function (x, y) {return num_in_english[x].length + num_in_english[y].length;}), 
+    //     hints: [
+    //         "Hint: Did you follow our advice from the last question? NOW, don't be a CS Major (nor a Math Major too).", 
+    //         "Hint: I will cast a spell on you: LEARN HOW TO SPELL."
+    //     ]
+    // }
 ];
 
 
@@ -108,7 +194,7 @@ var score = null;
 var current_level = null;
 var clues_used_for_level = null;
 var hints_used_for_level = null;
-const num_level = all_operators.length;
+const num_level = questions.length;
 
 
 function add_new_clue(lvalue, rvalue) {
@@ -208,6 +294,10 @@ function init_level(level) {
     document.getElementById("clue-list-container").innerHTML = "";
     question_lvalue = randint(0, 19);
     question_rvalue = randint(0, 19);
+    // if (level == 2) { 
+    //     // the division problem floor(r / l)
+    //     question_lvalue = randint(1, 19);
+    // }
     hints_used_for_level = 0;
     clues_used_for_level = 0;
     set_span_val("question-num-l", question_lvalue);
