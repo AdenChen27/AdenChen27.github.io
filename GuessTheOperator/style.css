@@ -1,0 +1,29 @@
+.container-fluid {
+    margin-bottom: 70px;
+}
+.entry {
+    width: 3em;
+}
+
+
+footer {
+    height: 2.5em;
+}
+
+label {
+    font-size: 0.75em;
+}
+
+html body {
+    font-family: Arial, sans-serif; 
+    background-color: #CAF0F8; 
+    color: #023E8A;
+}
+/*question-container {
+    background-color: lightblue;
+}
+
+#clue-list-container {
+    background-color: #ddd;
+}*/
+
