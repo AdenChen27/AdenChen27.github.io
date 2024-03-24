@@ -3,6 +3,10 @@
 
 I'm a first-year undergraduate student at UChicago, studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
 
+## [Guess the Operator](https://github.com/AdenChen27/GuessTheOperator)
+Made for 2024 UChicago Hackathon with [Hanlei Wen](https://github.com/hanleiwen), [Ziad Elshahawy](https://github.com/zelshahawy), [Justin Zhang](https://github.com/chenjiaz2022), and Jack Hu.
+
+
 
 ## [Ex Libris](https://github.com/uExLibris/uExLibris.github.io)
 
