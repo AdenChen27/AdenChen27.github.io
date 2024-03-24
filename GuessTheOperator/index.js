@@ -112,8 +112,8 @@ const questions = [
     {
         func: (function (x, y) {return (x + 1)*y;}), 
         hints: [
-            "Hint: You can always try an operation of y to x, rather than of x to y.",
-            "Hint: When in doubt, DIVIDE up the question."
+            "Hint: Multiply.",
+            "Hint: Multiply, then add."
         ]
     }, 
     {
