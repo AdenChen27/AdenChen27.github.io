@@ -60,24 +60,38 @@ const hints = [
 const questions = [
     {
         func: (function (x, y) {return 2 * x - y;}), 
-        hints: ["Maybe I should recall my elementary school arithmetic 🤔",
-        "I should probably multiply 2 to the first number and see what's going on 🤯"]
+        hints: [
+            "Hint: Linear combination",
+            "Hint: Multiply 2 to the first number"
+        ]
     }, 
     {
         func: (function (x, y) {return num_of_digits(x) + num_of_digits(y);}), 
-        hints: ["Forget all the mathematics 🤔"]
+        hints: [
+            "Hint: Forget math", 
+            "Hint: How long are the numbers? The longer the better."
+        ]
     },
     {
         func: (function (x, y) {return 2 * x * x + 3;}), 
-        hints: ["I should probably check the square of first number and ignore the second one 🤔"]
+        hints: [
+            "Hint: Polynomials!", 
+            "Hint: Square the first number."
+        ]
     },
     {
         func: (function (x, y) {return num_of_1_in_binary(x) + num_of_1_in_binary(y);}), 
-        hints: ["I should potentially think about the binary form 🤔"]
+        hints: [
+            "Hint: Yo, are you a CS major? If not you should become one.", 
+            "Hint: Binaryyyyyy."
+        ]
     },
     {
         func: (function (x, y) {return num_of_circles(x) + num_of_circles(y);}), 
-        hints: ["I should plausibly not search up what homeomorphism means 🤔"]
+        hints: [
+            "Hint: Shapes", 
+            "Hint: Circles lol"
+        ]
     }
 ];
 
