@@ -105,8 +105,10 @@ const questions = [
     {
         func: (function (x, y) {return x + y;}), 
         hints: [
-            "Hint: Why do you need a clue for this???",
-            "Hint: Come on man, seriously? Reeducate yourself PLS."
+            // "Hint: Why do you need a clue for this???",
+            // "Hint: Come on man, seriously? Reeducate yourself PLS."
+            "Hint: ++++++", 
+            "Hint: Trying adding stuff."
         ]
     }, 
     {
