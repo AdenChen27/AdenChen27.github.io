@@ -1,7 +1,23 @@
 
 # Hey, I'm Aden
 
-I'm a first-year undergraduate student at UChicago, studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
+I'm a second-year undergraduate student at UChicago studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
+
+## LaTeX
+My LaTeX package and Ultisnips snippets file for taking math notes using LaTeX and vim.
+
+Borrowed heavily from
+[gillescastel](https://github.com/gillescastel)'s
+[preamble file](https://github.com/gillescastel/lecture-notes/blob/master/algebraic-topology/preamble.tex)
+for his
+[lecture notes](https://github.com/gillescastel/lecture-notes), 
+his [snippets file](https://github.com/gillescastel/latex-snippets)
+(see also his [blog post](https://castel.dev/post/lecture-notes-1/)), 
+and [Andrew Lin](https://web.stanford.edu/~lindrew/)'s
+package, [lindrew](https://web.stanford.edu/~lindrew/lindrew.sty).
+
+
+
 
 ## [Guess the Operator](https://github.com/AdenChen27/GuessTheOperator)
 
