@@ -1,5 +1,4 @@
 
-# Hey, I'm Aden
 
 I'm a second-year undergraduate student at UChicago studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
 
