@@ -8,6 +8,8 @@ My [LaTeX package](https://github.com/AdenChen27/latex)
 and Ultisnips [snippets file](https://github.com/AdenChen27/dotfiles/blob/main/vim/UltiSnips/tex.snippets) 
 for taking math notes using LaTeX and vim.
 
+Check out a [sample Overleaf document](https://www.overleaf.com/read/psgmvhwzppnr#adf899) using my LaTeX package.
+
 Borrowed heavily from
 [gillescastel](https://github.com/gillescastel)'s
 [preamble file](https://github.com/gillescastel/lecture-notes/blob/master/algebraic-topology/preamble.tex)
