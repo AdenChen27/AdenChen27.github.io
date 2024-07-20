@@ -4,7 +4,9 @@
 I'm a second-year undergraduate student at UChicago studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
 
 ## LaTeX
-My LaTeX package and Ultisnips snippets file for taking math notes using LaTeX and vim.
+My [LaTeX package](https://github.com/AdenChen27/latex) 
+and Ultisnips [snippets file](https://github.com/AdenChen27/dotfiles/blob/main/vim/UltiSnips/tex.snippets) 
+for taking math notes using LaTeX and vim.
 
 Borrowed heavily from
 [gillescastel](https://github.com/gillescastel)'s
