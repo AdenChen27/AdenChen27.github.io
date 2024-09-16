@@ -4,8 +4,8 @@ date: 2024-08-28
 lastmod: 2024-09-20
 tags: ["Operator Theory", "Functional Analysis", "Spectral Theory"]
 author: ["Aden Chen"]
-description: "This paper studies the pulmonary efficiency of sausage dogs. Published in the Journal of Canine Science, 2004." 
-summary: "This paper studies the pulmonary efficiency of sausage dogs through several experiments." 
+description: "We develop the necessary tools and provide a proof of the min-max theorem, which offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. " 
+summary: "We develop the necessary tools and provide a proof of the min-max theorem, which offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. " 
 # cover:
 #     image: "paper2.png"
 #     alt: "Spectral Theory"
