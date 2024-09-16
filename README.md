@@ -1,132 +1,85 @@
+# Minimalist Hugo Template for Academic Websites
 
+This repository contains a [Hugo](https://github.com/gohugoio/hugo) template to create a personal academic website. The template uses the [PaperMod theme](https://github.com/adityatelange/hugo-PaperMod) but modifies it in various ways to be more minimalist and more adapted to academic websites. The website is hosted on [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
 
-I'm a second-year undergraduate student at UChicago studying Economics and Mathematics. The following are a few of my more interesting projects. Clicking on the project names leads you to their corresponding Github repository.
+## Documentation
 
-## LaTeX
-My [LaTeX package](https://github.com/AdenChen27/latex) 
-and Ultisnips [snippets file](https://github.com/AdenChen27/dotfiles/blob/main/vim/UltiSnips/tex.snippets) 
-for taking math notes using LaTeX and vim.
+The template is documented at https://pascalmichaillat.org/d5/.
 
-Check out a [sample Overleaf document](https://www.overleaf.com/read/psgmvhwzppnr#adf899) using my LaTeX package.
+## Illustration
 
-Borrowed heavily from
-[gillescastel](https://github.com/gillescastel)'s
-[preamble file](https://github.com/gillescastel/lecture-notes/blob/master/algebraic-topology/preamble.tex)
-for his
-[lecture notes](https://github.com/gillescastel/lecture-notes), 
-his [snippets file](https://github.com/gillescastel/latex-snippets)
-(see also his [blog post](https://castel.dev/post/lecture-notes-1/)), 
-and [Andrew Lin](https://web.stanford.edu/~lindrew/)'s
-package, [lindrew](https://web.stanford.edu/~lindrew/lindrew.sty).
+The website produced by the template can be viewed at https://pascalmichaillat.org/hugo-website/.
 
+## Installation
 
+### On your local machine
 
++ Clone the repository to your local machine
++ Install [Hugo](https://gohugo.io/installation/). On a Mac, this is easily done with [Homebrew](https://brew.sh): simply run `brew install hugo` in the terminal.
++ Since the website is hosted on GitHub Pages, it is convenient to install [GitHub Desktop](https://desktop.github.com). The website can conveniently be updated from your local machine via GitHub Desktop without going to GitHub.
++ Update the `baseURL` parameter in `config.yml` with the website URL that you plan to use. By default the ULR is `https://username.github.io`.
 
-## [Guess the Operator](https://github.com/AdenChen27/GuessTheOperator)
+### On your GitHub account
 
++ The first time that you push your repository to GitHub, you need to allow GitHub Actions and GitHub Pages so the website can be built and deployed to GitHub Pages.
++ The first step is to [ask GitHub to publish the website with a GitHub Action](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow).  GitHub offers a ready-made action to publish a Hugo website, called `Deploy Hugo site to Pages`. This action must be enabled in the [Pages Settings](https://github.com/pmichaillat/hugo-website/settings/pages) of your GitHub repository. You can view the workflow triggered by the action in the `.github/workflows/hugo.yml` file.
++ Once the GitHub Actions are enabled, GitHub will build and publish the website as soon as the repository is updated. 
++ If you would like to update the deployment action (for instance because it became outdated and fails to deploy the site), you can find the [most recent action on GitHub]( https://github.com/actions/starter-workflows/blob/main/pages/hugo.yml). You can place this file directly in the `.github/workflows` folder to replace the old `hugo.yml` file—but make sure to set `push:
+    branches` to `["main"]`.
 
-Super nerdy game made during the 2024 UChicago Hackathon with [Hanlei Wen](https://github.com/hanleiwen), [Ziad Elshahawy](https://github.com/zelshahawy), [Justin Zhang](https://github.com/chenjiaz2022), and [Jack Hu](https://github.com/jackqchu). 
+## Usage
 
-First-prize in web development category. 
+### Development
 
-Play it [here](https://adenchen27.github.io/GuessTheOperator/index.html). Have fun!
+Navigate to the website directory and run `hugo server` in the terminal. The command builds the website on your machine and makes it available at http://localhost:1313. You can modify the content of the repository and develop your website entirely on your local machine.
 
+### Compilation
 
+Once your website is ready to be made public, run `hugo` in the terminal from the website directory. When you run the `hugo` command, Hugo processes your content, templates, and other project files and generates a static website. The resulting output is placed in the `public` folder.
 
-## [Ex Libris](https://github.com/uExLibris/uExLibris.github.io)
+### Deployment
 
-~~I have very recently started a popular science media with a few of my friends (20+!) named Ex Libris. (The name was appropriated from the name of a cafe located on the first floor of the Joseph Regenstein Library at the University of Chicago.)~~
+With GitHub Desktop, commit the changes and push them to the website repository on GitHub. Then, the [GitHub Action](https://github.com/pmichaillat/hugo-website/actions/workflows/hugo.yml) builds the website and deploys it to [GitHub Pages](https://github.com/pmichaillat/hugo-website/deployments/github-pages).
 
+## Performance
 
-The [website for Ex Libris](https://uexlibris.github.io/) is still in development and has only one demo article that I've written during the past winter break about [framing effect](https://thedecisionlab.com/biases/framing-effect), [transaction utility theory](https://www.acrwebsite.org/volumes/6118/volumes/v10), [scarcity theory](https://en.wikipedia.org/wiki/Scarcity_(social_psychology)) etc.; the demo article was written in Chinese, but most, if not all, future articles will be in English.
+Despite the modifications to the PaperMod theme, the website continues to perform well on mobile and desktop devices. Here is an overview of the mobile performance from [PageSpeed Insights](https://pagespeed.web.dev/):
 
-2024.04: Project failed. Website might be recycled for personal blogging use.
+<img width="470" alt="mobile" src="https://github.com/pmichaillat/hugo-website/assets/85443660/1488df3e-19bb-4f9f-8a86-11f361414d92">
 
+And here is an overview of the desktop performance:
 
+<img width="453" alt="desktop" src="https://github.com/pmichaillat/pmichaillat.github.io/assets/85443660/eff134d2-6097-4bc2-bfd7-4f5c18571789">
 
-## [English Reading Practice Website](https://github.com/AdenChen27/Project_0)
+## Software
 
-One common challenge in learning English as a second language (at a beginner to intermediate level) that I both experienced personally and observed among peers is the tendency to memorize translations of English words, making it difficult to understand their precise meanings in context due to nuances lost in translation. To address this issue, I tried to develop a new learning model where the learner is presented with new words, learns the new words, and immediately practices using them in context (instead of the common process of "reading -> finding new vocabulary -> learning new vocabulary( -> not seeing the words in the near future -> remembering only the translation, if not completely forgetting)").
+The website was built with Hugo v0.128.2 on an Apple Silicon Mac running macOS Sonoma 14.5. The website was tested and validated on Safari 17.5 on a Mac and on Safari on an iPhone with iOS 17.5.[^1]
 
-[This website](https://adenchen27.pythonanywhere.com/index/) serves as an implementation of the proposed learning model. Users begin by selecting a passage, selecting and learning unfamiliar words within the passage (before being shown the full passage), and then immediately practicing using these newly learned words within the context of the passage via, for example, doing fill-in-the-blank or multiple-choice questions about the newly learned words.
+[^1]:  The updates to Hugo v0.120 and then to Hugo v0.123 introduced some issues with previous versions of the template. The issue caused by the update to Hugo v0.120 is [#1325 in the PaperMod repo](https://github.com/adityatelange/hugo-PaperMod/issues/1325). The issue caused by the update to Hugo v0.123 is [#1449 in the PaperMod repo](https://github.com/adityatelange/hugo-PaperMod/issues/1449). These issues are now resolved
 
+While the template should also work on other operating systems and with other versions of Hugo, compatibility cannot be guaranteed. Users on Windows or Linux systems, or those using different Hugo versions, may need to make minor adjustments. Similarly, the website should work with other browsers, but minor adjustments might be necessary for perfect compatibility. Please report any compatibility issues or bugs you encounter to help improve cross-platform support.
 
-<p float="left">
-  <img src="demo/project_0_0.png" title="" alt="" width="400">
-  <img title="" src="demo/project_0_1.png" alt="" width="400">
-</p>
+## License
 
+The content of this repository is licensed under the terms of the MIT License.
 
+## Real-world implementations
 
-
-## [Online APA7 In-Text Citation Checker](https://github.com/AdenChen27/AdenChen27.github.io/tree/main/citation_checker)
-
-During high school, I had to write several essays using APA7 format and was unaware of the existence of LaTeX. I'm familiar with various citation generator tools that assist in creating a reference list (one of which I particularly liked is [Scribbr](https://www.scribbr.com/citation/generator/)), but I could not find any free online tools that can check my in-text citations. In particular, I need a tool that can: 
-
-1. verity the format of my in-text citations (because some rules are kind of confusing for beginners), and
-2. check whether my in-text citations match my reference list (i.e. whether each in-text citation has a matching entry in the reference list, and all entries in my reference list has been cited somewhere in the essay.)
-
-So I created [one](https://adenchen27.github.io/citation_checker/main.html) using RegExp. It looks extremely primitive (because it is), but it gets the job done (mostly).
-
-<img src="demo/apa_in-text_checker.png" title="" alt="" width="400">
-
-
-
-
-## [Econic](https://github.com/AdenChen27/MyMoneyOnMyMind)
-
-Animations about behavioral economics concepts used in Econic, a Wechat Official Account blog publishing articles explaining behavioral economics to the general public.
-
-<img src="demo/MMOMM.png" title="" alt="" width="400">
-
-
-
-## [Citation Network](https://github.com/AdenChen27/reference_map)
-
-I tried to visualize the reference lists of some research papers I read as a graph (each node represents a research paper, each edge a citation). Here's a [demo](https://adenchen27.github.io/demo_0.html) of what I did. (Of course, this was before I know the existence of [Connected Papers](https://www.connectedpapers.com/), which does a much, much better job.)
-
-<img src="demo/reference_map.png" title="" alt="" width="400">
-
-
-
-## [Online function plotting](https://github.com/AdenChen27/AdenChen27.github.io/tree/main/func_image)
-
-A [webpage](https://adenchen27.github.io/func_image/func_image.html) that plots function images.
-
-<img src="demo/func_image.png" title="" alt="" width="502">
-
-
-
-## [CTB Website](https://github.com/CHVSG/CHVSG.github.io)
-
-[Website](https://chvsg.github.io/) for a [CTB](https://www.hauscr.org/ctb) project on motivating sports participation among Chinese high school girls.
-
-<img src="demo/CHVSG_main.gif" title="" alt="" width="386">
-
-
-
-
-## [2048 solver](https://github.com/AdenChen27/2048_solver)
-
-Implemented using Minimax algorithm and Alpha-Beta pruning.
-
-![](demo/2048_solver.gif)
-
-
-
-## FaceTimelapse
-
-Align faces to produce goofy animations.
-
-<img src="demo/FaceTimelapse.gif" title="" alt="" width="382">
-
-Here's Michael Stevens, creator of [Vsauce](https://www.youtube.com/vsauce), my favorite educational channel on YouTube:
-
-https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/07696c62-9ef5-4181-a4f4-27ede6e74234
-
-
-And here's Stevie Nicks:
-
-https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/ddbabc4d-db99-4370-b9c0-90f9787455fd
-
-
++ [Pascal Michaillat's website](https://pascalmichaillat.org/) ([source code](https://github.com/pmichaillat/pmichaillat.github.io))
++ [Dylan Balla-Elliott's website](https://www.dballaelliott.com) ([source code](https://github.com/dballaelliott/site))
++ [Rosa van den Ende's website](https://rosavandenende.github.io) ([source code](https://github.com/rosavandenende/rosavandenende.github.io))
++ [Samia Kabir's website](https://samiakabir.com) ([source code](https://github.com/SamiaKabir/samiakabir.github.io))
++ [Dylan Laplace Mermoud's website](https://dylanlaplacemermoud.github.io) ([source code](https://github.com/DylanLaplaceMermoud/dylanlaplacemermoud.github.io))
++ [Maarten Goos's website](https://maartengoos.com) ([source code](https://github.com/MaartenGoos/website))
++ [Aryan Ahadinia's website](https://aryanahadinia.github.io) ([source code](https://github.com/AryanAhadinia/AryanAhadinia.github.io))
++ [Jun Wong's website](https://junwong.org) ([source code](https://github.com/junwong97/junwong97.github.io))
++ [Erling Rennemo Jellum's website](https://erlingrj.github.io) ([source code](https://github.com/erlingrj/erlingrj.github.io))
++ [Yangkeun Yun's website](https://yangkeunyun.github.io) ([source code](https://github.com/yangkeunyun/yangkeunyun.github.io))
++ [Maghfira Ramadhani's website](https://maghfiraer.github.io) ([source code](https://github.com/maghfiraer/maghfiraer.github.io))
++ [Ismael Moreno-Martinez's website](https://ismaelmorenomartinez.eu) ([source code](https://github.com/ismaelmorenomartinez/ismaelmorenomartinez.github.io))
++ [Lucas Warwar's website](https://lucaswarwar.github.io) ([source code](https://github.com/lucaswarwar/lucaswarwar.github.io))
++ [Franz Louis Cesista's website](https://leloykun.github.io) ([source code](https://github.com/leloykun/leloykun.github.io))
++ [Kostas Bimpikis's website](https://stanford.edu/~kostasb/)
++ [Pragathi Praveena's website](https://pragathipraveena.com)
++ [Qiwei He's website](https://www.qiwei-he.com)
++ [Pierre Bardier's website](https://pierrebard.github.io/pierre-bardier/)
