@@ -56,8 +56,8 @@ params:
           title: Aden Chen
           subtitle: "Undergraduate at the University of Chicago studying Mathematics and Economics. "
           imageUrl: "Aden-Profile-Baker-Hat.png"
-          imageWidth: 160
-          imageHeight: 160
+          imageWidth: 175
+          imageHeight: 175
           imageTitle: Aden Chen
           buttons:
             - name: Papers
