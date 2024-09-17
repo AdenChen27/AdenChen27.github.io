@@ -84,6 +84,8 @@ params:
           url: resume.pdf
         - name: Email
           url: mailto:adenc@uchicago.com
+        - name: GitHub
+          url: https://github.com/AdenChen27
         # - name: Zoom
         #   url: https://www.zoom.us/my/igelfeld
         # - name: Location
@@ -92,8 +94,6 @@ params:
         #   url: officehours/
         # - name: Google Scholar
         #   url: https://scholar.google.com/citations?user=cL23w-4AAAAJ
-        - name: GitHub
-          url: https://github.com/AdenChen27
         # - name: Substack
         #   url: https://pmichaillat.substack.com
         # - name: YouTube
