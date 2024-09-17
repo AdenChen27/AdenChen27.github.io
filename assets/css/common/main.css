@@ -4,6 +4,7 @@
     max-width: calc(var(--main-width) + var(--gap) * 2);
     margin: auto;
     padding: var(--gap);
+    font-family: "Lucida Console", monospace;
 }
 
 .page-header h1 {

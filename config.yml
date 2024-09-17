@@ -28,7 +28,7 @@ menu:
         #   weight: 6
 
 params:
-    description: "I am an undergraduate student at the University of Chicago studying Mathematics and Economics. "
+    # description: "Undergraduate student at the University of Chicago studying Mathematics and Economics. "
     author: Aden Chen
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "Jan 02, 2006"
@@ -54,8 +54,8 @@ params:
     profileMode:
           enabled: true
           title: Aden Chen
-          subtitle: "I am an undergraduate student at the University of Chicago studying Mathematics and Economics. "
-          imageUrl: "Aden-drawn-profile.jpeg"
+          subtitle: "Undergraduate at the University of Chicago studying Mathematics and Economics. "
+          imageUrl: "Aden-Profile-Baker-Hat.png"
           imageWidth: 160
           imageHeight: 160
           imageTitle: Aden Chen

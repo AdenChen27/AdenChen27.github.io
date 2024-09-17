@@ -22,7 +22,8 @@
 }
 
 .profile img {
-    border-radius: 50%;
+    border-radius: 0%;
+/*    border-radius: 50%;*/
 }
 
 .buttons {
