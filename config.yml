@@ -64,6 +64,8 @@ params:
               url: papers/
             - name: Projects
               url: projects/
+            - name: Resume
+              url: resume.pdf
             # - name: Courses
             #   url: courses/
             # - name: Data
