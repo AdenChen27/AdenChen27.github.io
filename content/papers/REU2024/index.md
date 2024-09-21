@@ -4,8 +4,8 @@ date: 2024-08-28
 lastmod: 2024-09-20
 tags: ["Operator Theory", "Functional Analysis", "Spectral Theory"]
 author: ["Aden Chen"]
-description: "The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools and present a proof of this theorem. " 
-summary: "The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools and present a proof of this theorem. " 
+description: "The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools to state and ultimately prove this theorem."
+summary: "The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools to state and ultimately prove this theorem."
 # cover:
 #     image: "paper2.png"
 #     alt: "Spectral Theory"
@@ -28,7 +28,8 @@ summary: "The min-max theorem offers a variational characterization of the discr
 
 ##### Abstract
 
-The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools and present a proof of this theorem. 
+The min-max theorem offers a variational characterization of the discrete eigenvalues that lie below the essential spectrum of a self-adjoint operator. In this paper, we develop the necessary tools to state and ultimately prove this theorem. 
+
 
 
 ---
