@@ -21,7 +21,7 @@ for taking math notes using LaTeX and vim.
 Check out a [sample Overleaf document](https://www.overleaf.com/read/psgmvhwzppnr#adf899) using my LaTeX package.
 
 
----
+<!-- ---
 
 ## [Guess the Operator](https://github.com/AdenChen27/GuessTheOperator)
 
@@ -32,7 +32,7 @@ First-prize in web development category.
 
 Play it [here](/GuessTheOperator/index.html). Have fun!
 
-
+ -->
 <!-- 
 # [Ex Libris](https://github.com/uExLibris/uExLibris.github.io)
 
@@ -44,7 +44,7 @@ The [website for Ex Libris](https://uexlibris.github.io/) is still in developmen
 2024.04: Project failed. Website might be recycled for personal blogging use.
  -->
 
-
+<!-- 
 ---
 
 ## [English Reading Practice Website](https://github.com/AdenChen27/Project_0)
@@ -135,6 +135,6 @@ https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/07696c62-9ef5
 
 And here's Stevie Nicks:
 
-https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/ddbabc4d-db99-4370-b9c0-90f9787455fd
+https://github.com/AdenChen27/AdenChen27.github.io/assets/88664205/ddbabc4d-db99-4370-b9c0-90f9787455fd -->
 
 
