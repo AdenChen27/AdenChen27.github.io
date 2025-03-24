@@ -8,7 +8,7 @@ March 30, 2025:
 - Alchian and Demsetz (1972) Production, Information Costs, and Economic Organization
 
 March 23, 2025:
-- Friedman (1962) Capitalism and Freedom (Chapters 1)
+- Friedman (1962) Capitalism and Freedom (Chapter 1)
 - Varian (1980) A Model of Sales
 
 March 2, 2025:
@@ -18,7 +18,7 @@ March 2, 2025:
 February 22, 2025:
 - Hayek (1945) The Use of Knowledge in Society
 - Aden Chen presented: Prospect Theory
-- Andrew presented: Almås (2012) Adjusting for Age Effects in Cross-sectional Distributions
+- Andrew Wang presented: Almås (2012) Adjusting for Age Effects in Cross-sectional Distributions
 
 February 16, 2025:
 - Card and Krueger (1993) Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania
