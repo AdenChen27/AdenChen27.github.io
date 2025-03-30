@@ -40,4 +40,7 @@ Future reading pool:
 - Shapiro (1984) Equilibrium Unemployment Worker
 - Acemoglu (2001) The Colonial Origins of Comparative Development_ An Empirical Investigation
 - Sharpe (1964) Capital Asset Prices_ A Theory of Market Equilibrium under Conditions of Risk
+- Coase (1959) The Federal Communications Commission
+- Coase (1937) The Nature of the Firm
+- Richard Posner; Lina Khan
 
