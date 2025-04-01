@@ -3,7 +3,10 @@ title: "Economics Theory Reading Group"
 # date: 2025-01-26
 hidemeta: true
 ---
-March 30, 2025:
+April 7, 2025:
+- Lucas (1976) Econometric policy evaluation- A critique
+
+March 31, 2025:
 - Friedman (1962) Capitalism and Freedom (Chapters 2--3)
 - Alchian and Demsetz (1972) Production, Information Costs, and Economic Organization
 
