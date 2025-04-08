@@ -3,8 +3,11 @@ title: "Economics Theory Reading Group"
 # date: 2025-01-26
 hidemeta: true
 ---
+April 14, 2025:
+- Thistlethwaite and Campbell (1960) Regression-discontinuity analysis: An alternative to the ex post facto experiment
+
 April 7, 2025:
-- Lucas (1976) Econometric policy evaluation- A critique
+- Lucas (1976) Econometric policy evaluation: A critique
 
 March 31, 2025:
 - Friedman (1962) Capitalism and Freedom (Chapters 2--3)
