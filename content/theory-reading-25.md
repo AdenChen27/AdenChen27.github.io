@@ -5,6 +5,8 @@ hidemeta: true
 ---
 April 14, 2025:
 - Thistlethwaite and Campbell (1960) Regression-discontinuity analysis: An alternative to the ex post facto experiment
+- Felix presented: Regression Discontinuity
+- Aden presented: Synthetic Control
 
 April 7, 2025:
 - Lucas (1976) Econometric policy evaluation: A critique
