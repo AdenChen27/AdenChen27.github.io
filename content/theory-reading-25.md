@@ -3,6 +3,9 @@ title: "Economics Theory Reading Group"
 # date: 2025-01-26
 hidemeta: true
 ---
+May 5, 2025:
+- Borjas (1987) Self Selection Earnings Immigrants
+
 April 14, 2025:
 - Thistlethwaite and Campbell (1960) Regression-discontinuity analysis: An alternative to the ex post facto experiment
 - Felix presented: Regression Discontinuity
