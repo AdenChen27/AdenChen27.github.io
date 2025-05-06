@@ -3,6 +3,10 @@ title: "Economics Theory Reading Group"
 # date: 2025-01-26
 hidemeta: true
 ---
+May 12, 2025:
+- Venkatesh (2001) Chicagos Pragmatic Planners
+- Gelbach (2006) Public Schooling for Young Children and Maternal Labor Supply
+
 May 5, 2025:
 - Borjas (1987) Self Selection Earnings Immigrants
 
