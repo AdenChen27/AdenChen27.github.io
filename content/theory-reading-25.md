@@ -3,6 +3,10 @@ title: "Economics Theory Reading Group"
 # date: 2025-01-26
 hidemeta: true
 ---
+
+May 19, 2025:
+- Conley and Ligon (2002) Economic Distance and Cross-Country Spillovers
+
 May 12, 2025:
 - Venkatesh (2001) Chicagos Pragmatic Planners
 - Gelbach (2006) Public Schooling for Young Children and Maternal Labor Supply
