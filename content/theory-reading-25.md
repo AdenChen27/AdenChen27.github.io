@@ -14,6 +14,7 @@ Suggested Readings on Economics:
 - Becker (1976) *The Economic Approach to Human Behavior*
 - Friedman (1953) *The Methodology of Positive Economics* — excerpts
 - [EconomicsStackExchange: *What is the point of all the models in an economics degree?*](https://economics.stackexchange.com/questions/36850/what-is-the-point-of-all-the-models-in-an-economics-degree)
+
 (Friedman (1953) and Becker (1976) are required readings in ECON20010.)
 
 
