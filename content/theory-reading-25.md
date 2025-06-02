@@ -4,13 +4,20 @@ title: "Economics Theory Reading Group"
 hidemeta: true
 ---
 
+### June 7, 2025, 8:00 PM CDT:
+- Andreoni (1990) Impure Altruism and Donations to Public Goods
+
+
 ### June 1, 2025, 8:00 PM CDT:
 Casual discussion on economics. Bring your own readings!
 
 Suggested Readings on Economics:
 
+- Duflo (2018) *The Economist as Plumber*
 - Rubinstein (2017) *Comments on Economic Models, Economics, and Economists*
+- Mankiw (2006) *The Macroeconomist as Scientist and Engineer*
 - Rubinstein (2006) *Dilemmas of an Economic Theorist*
+- Roth (2003) *The Economist as Engineer: Game Theory, Experimentation, and Computation as Tools for Design Economics*
 - Becker (1976) *The Economic Approach to Human Behavior*
 - Friedman (1953) *The Methodology of Positive Economics* — excerpts
 - [EconomicsStackExchange: *What is the point of all the models in an economics degree?*](https://economics.stackexchange.com/questions/36850/what-is-the-point-of-all-the-models-in-an-economics-degree)
