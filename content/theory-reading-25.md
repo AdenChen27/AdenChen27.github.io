@@ -1,3 +1,4 @@
+
 ---
 title: "Economics Theory Reading Group"
 # date: 2025-01-26
@@ -10,7 +11,9 @@ hidemeta: true
 
 ### June 1, 2025, 8:00 PM CDT:
 Casual discussion on economics. Bring your own readings!
-
+<details>
+<summary>Suggested Readings</summary>
+<br>
 Suggested Readings on Economics:
 
 - Duflo (2018) *The Economist as Plumber*
@@ -32,6 +35,7 @@ Suggested Readings on Mathematics:
 - Rees (1962) *The Nature of Mathematics*
 - Russell (1901) *Mathematics and the Metaphysicians*
 - [MathOverflow: *What’s a Mathematician to Do?*](https://mathoverflow.net/questions/43690/whats-a-mathematician-to-do)
+</details>
 
 
 
