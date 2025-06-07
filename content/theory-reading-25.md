@@ -5,9 +5,11 @@ title: "Economics Theory Reading Group"
 hidemeta: true
 ---
 
-### June 14, 2025, 8:00 PM CDT:
+### June 21, 2025, 8:00 PM CDT:
 - Oscar presents: Hosios (1988) On the Efficiency of Matching and Related Models of Search and Bargaining
 
+### June 14, 2025, 8:00 PM CDT:
+- Andrew presents:
 
 ### June 7, 2025, 8:00 PM CDT:
 - Alexandra presents: Andreoni (1990) Impure Altruism and Donations to Public Goods
