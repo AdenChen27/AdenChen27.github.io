@@ -9,7 +9,8 @@ hidemeta: true
 - Oscar presents: Hosios (1988) On the Efficiency of Matching and Related Models of Search and Bargaining
 
 ### June 14, 2025, 8:00 PM CDT:
-- Andrew presents:
+- Bernanke (2013) A Century of US Central Banking- Goals, Frameworks, Accountability
+- Sharpe (1964) Capital Asset Prices_ A Theory of Market Equilibrium under Conditions of Risk
 
 ### June 7, 2025, 8:00 PM CDT:
 - Alexandra presents: Andreoni (1990) Impure Altruism and Donations to Public Goods
