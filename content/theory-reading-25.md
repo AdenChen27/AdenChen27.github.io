@@ -5,10 +5,10 @@ title: "Economics Theory Reading Group"
 hidemeta: true
 ---
 
-### June 21, 2025, 8:00 PM CDT:
+### June 21, 2025, 9:00 PM CDT:
 - Oscar presents: Hosios (1988) On the Efficiency of Matching and Related Models of Search and Bargaining
 
-### June 14, 2025, 8:00 PM CDT:
+### June 14, 2025, 9:00 PM CDT:
 - Bernanke (2013) A Century of US Central Banking- Goals, Frameworks, Accountability
 - Sharpe (1964) Capital Asset Prices_ A Theory of Market Equilibrium under Conditions of Risk
 
