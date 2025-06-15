@@ -7,6 +7,7 @@ hidemeta: true
 
 ### June 21, 2025, 9:00 PM CDT:
 - Oscar presents: Hosios (1988) On the Efficiency of Matching and Related Models of Search and Bargaining
+- Andrew presents: Minsky (1977) Financial Instability Hypothesis
 
 ### June 14, 2025, 9:00 PM CDT:
 - Bernanke (2013) A Century of US Central Banking- Goals, Frameworks, Accountability
